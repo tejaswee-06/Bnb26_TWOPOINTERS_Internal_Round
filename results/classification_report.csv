@@ -1,0 +1,7 @@
+,precision,recall,f1,support
+human,1.0,1.0,1.0,15.0
+moderate_bot,1.0,1.0,1.0,15.0
+advanced_bot,1.0,1.0,1.0,15.0
+macro avg,1.0,1.0,1.0,45.0
+weighted avg,1.0,1.0,1.0,45.0
+accuracy,,,1.0,45.0
