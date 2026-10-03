@@ -1,0 +1,11 @@
+'use client'
+import {useFD} from '@/lib/store';import {Kpi,Pill} from '@/components/charts'
+export default function Alloc(){const {last:l,events}=useFD();if(!l)return<p>Starting…</p>;const s=l.seats,sum=s.confirmed+s.held+s.avail,ok=sum===s.total&&l.oversell===0
+const cells=Array.from({length:s.total},(_,i)=>i<s.confirmed?'c':i<s.confirmed+s.held?'h':'a')
+return<div className="g"><div className="card"><div className="row"><h2>Inventory monitor · {s.total} total</h2>{ok?<Pill s="ok">INVENTORY INTEGRITY VALID</Pill>:<Pill s="bad">INTEGRITY VIOLATION</Pill>}</div>
+<div className="cell" role="img" aria-label={`${s.confirmed} confirmed, ${s.held} held, ${s.avail} available of ${s.total}`}>{cells.map((c,i)=><i key={i} className={c}/>)}</div>
+<div className="legend"><span><i style={{background:'var(--ok)'}}/>Confirmed {s.confirmed}</span><span><i style={{background:'var(--warn)'}}/>Held {s.held}</span><span><i style={{background:'var(--sys)',opacity:.45}}/>Available {s.avail}</span></div>
+<p className="mono" style={{fontSize:'1.05rem'}}>CONFIRMED {s.confirmed} + HELD {s.held} + AVAILABLE {s.avail} = {sum} {sum===s.total?'= TOTAL ✓':'≠ TOTAL ■'}</p></div>
+<div className="card"><h2>State machine</h2><div className="steps" style={{alignItems:'center'}}><span className="step on">AVAILABLE · {s.avail}</span><span className="mono">→</span><span className="step on" style={{borderColor:'var(--warn)'}}>HELD · {s.held}</span><span className="mono">→</span><span className="step done">CONFIRMED · {s.confirmed}</span></div><p className="mut mono" style={{fontSize:'.76rem'}}>↺ expired holds ({l.expired}) return to AVAILABLE</p></div>
+<div className="g g4"><Kpi l="Expired holds" v={l.expired}/><Kpi l="Duplicate attempts" v={l.dup}/><Kpi l="Rejected (idempotent)" v={l.rejected}/><Kpi l="Overselling" v={l.oversell}/></div>
+<div className="card"><h2>AllocationEvent stream</h2><div className="tw"><table><thead><tr><th>allocation_id</th><th>session</th><th>state</th><th>idempotency_key</th></tr></thead><tbody>{events.filter((e:any)=>e.alloc).slice(0,10).map((e:any)=><tr key={e.id}><td className="mono">{e.alloc.allocation_id}</td><td className="mono">{e.alloc.session_id}</td><td>✓ {e.alloc.state}</td><td className="mono">{e.alloc.idempotency_key}</td></tr>)}</tbody></table></div></div></div>}
