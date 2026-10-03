@@ -1,0 +1,163 @@
+{
+  "model_name": "fairdrop_behavioral_xgboost",
+  "version": "v1.0.0",
+  "task": "multiclass behavioral classification (session level)",
+  "algorithm": "XGBoost 3.3.0 (multi:softprob)",
+  "classes": [
+    "human",
+    "moderate_bot",
+    "advanced_bot"
+  ],
+  "label_encoding": {
+    "human": 0,
+    "moderate_bot": 1,
+    "advanced_bot": 2
+  },
+  "feature_set": "C_web_mouse",
+  "n_features": 61,
+  "features": [
+    "web_request_count",
+    "web_unique_url_count",
+    "web_GET_count",
+    "web_GET_ratio",
+    "web_session_duration_s",
+    "web_inter_request_mean",
+    "web_inter_request_median",
+    "web_inter_request_std",
+    "web_inter_request_max",
+    "web_request_rate",
+    "web_burstiness",
+    "web_short_gap_count",
+    "web_peak_requests_per_s",
+    "web_unique_referrer_count",
+    "web_repeated_url_ratio",
+    "web_favicon_ratio",
+    "web_page_request_count",
+    "web_page_dwell_mean",
+    "web_page_dwell_median",
+    "web_page_dwell_std",
+    "web_page_dwell_min",
+    "web_page_dwell_max",
+    "web_bytes_mean",
+    "web_bytes_std",
+    "mouse_move_count",
+    "mouse_left_click_count",
+    "mouse_right_click_count",
+    "mouse_click_ratio",
+    "mouse_move_rate",
+    "mouse_trajectory_distance",
+    "mouse_displacement",
+    "mouse_path_efficiency",
+    "mouse_speed_mean",
+    "mouse_speed_median",
+    "mouse_speed_std",
+    "mouse_speed_max",
+    "mouse_speed_p95",
+    "mouse_acc_mean_abs",
+    "mouse_acc_std",
+    "mouse_dt_mean",
+    "mouse_dt_std",
+    "mouse_dt_cv",
+    "mouse_dt_unique_ratio",
+    "mouse_pause_count",
+    "mouse_pause_ratio",
+    "mouse_long_pause_count",
+    "mouse_pause_mean",
+    "mouse_pause_median",
+    "mouse_pause_std",
+    "mouse_x_var",
+    "mouse_y_var",
+    "mouse_x_range",
+    "mouse_y_range",
+    "mouse_step_std",
+    "mouse_zero_step_ratio",
+    "mouse_jump_count",
+    "mouse_const_step_ratio",
+    "mouse_dirchange_count",
+    "mouse_dirchange_ratio",
+    "mouse_turn_abs_mean",
+    "mouse_turn_std"
+  ],
+  "excluded_feature_groups": {
+    "user_agent_and_protocol": "excluded (leakage test: UA-only CV macro-F1 = 0.556)",
+    "absolute_time_ids_filenames": "never used"
+  },
+  "hyperparameters": {
+    "max_depth": 2,
+    "learning_rate": 0.05,
+    "n_estimators": 200,
+    "subsample": 0.6,
+    "colsample_bytree": 1.0,
+    "min_child_weight": 2,
+    "reg_alpha": 1.0,
+    "reg_lambda": 2,
+    "n_estimators_final": 299,
+    "seed": 42
+  },
+  "risk_score": {
+    "definition": "1 - P(human)",
+    "calibrated": false,
+    "note": "model output score for the policy layer; not a calibrated real-world probability"
+  },
+  "dataset": {
+    "name": "Web Bot Detection Dataset",
+    "primary": "phase1 (official train/test annotations)",
+    "unit": "one session = one row",
+    "n_sessions_phase1": 150,
+    "n_train": 105,
+    "n_test": 45,
+    "train_class_counts": {
+      "human": 35,
+      "moderate_bot": 35,
+      "advanced_bot": 35
+    },
+    "test_class_counts": {
+      "human": 15,
+      "moderate_bot": 15,
+      "advanced_bot": 15
+    },
+    "external_phase2_sessions_web_only": 140,
+    "mouse_phase2": "not used (no click tokens; timestamps not aligned with coordinates)"
+  },
+  "training_date_utc": "2026-10-03T13:18:20+00:00",
+  "evaluation": {
+    "test_set": "phase1 official test (n=45)",
+    "accuracy": 1.0,
+    "balanced_accuracy": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0,
+    "human_recall": 1.0,
+    "moderate_bot_f1": 1.0,
+    "advanced_bot_f1": 1.0,
+    "human_to_any_bot_rate": 0.0,
+    "advanced_to_human_rate": 0.0,
+    "moderate_to_human_rate": 0.0,
+    "roc_auc_ovr_macro": 1.0,
+    "pr_auc_macro": 1.0,
+    "macro_f1_ci95": [
+      1.0,
+      1.0
+    ],
+    "cv_macro_f1_train": 1.0,
+    "human_vs_advanced_roc_auc": 1.0,
+    "external_phase2_web_only": {
+      "accuracy": 0.32142857142857145,
+      "macro_f1": 0.237758945386064,
+      "human_recall": 0.7321428571428571,
+      "advanced_bot_f1": 0.0,
+      "moderate_bot_f1": 0.25
+    },
+    "within_phase2_grouped_cv_web_macro_f1": 0.926154758877871,
+    "phase2_to_phase1test_web_macro_f1": 0.5232323232323233,
+    "accuracy_exact_ci95": [
+      0.9212948995931625,
+      1.0
+    ]
+  },
+  "warnings": [
+    "Trained on a Wikipedia-replica browsing dataset, not ticket-drop traffic. Requires FairDrop-specific validation with the team simulator and unseen adversarial traffic before any policy use.",
+    "Probabilities are uncalibrated. The model must not allocate seats or make authoritative queue decisions."
+  ]
+}
