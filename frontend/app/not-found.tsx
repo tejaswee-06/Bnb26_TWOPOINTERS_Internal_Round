@@ -1,0 +1,2 @@
+import Link from 'next/link'
+export default function NotFound() { return <div style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', padding: 24 }}><div className="card" style={{ textAlign: 'center', display: 'grid', gap: '.8rem', maxWidth: 440 }}><h1>Page not found</h1><p className="mut">That page doesn’t exist.</p><div className="row" style={{ justifyContent: 'center' }}><Link className="btn pri" href="/">FAIR DROP home</Link><Link className="btn" href="/events">Browse events</Link></div></div></div> }
