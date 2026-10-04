@@ -1,0 +1,8 @@
+{
+  "threshold": 0.4830743793999816,
+  "human_training_rows": 43086,
+  "threshold_95pct_human": 0.4830743793999816,
+  "heldout_human_false_positive_rate": 0.03369847753434831,
+  "heldout_bot_detection_rate": 0.21563542052612078,
+  "heldout_rows": 13471
+}
