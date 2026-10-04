@@ -1,0 +1,2 @@
+human_training_rows,threshold_95pct_human,heldout_human_false_positive_rate,heldout_bot_detection_rate,heldout_rows
+43086,0.4830743793999816,0.03369847753434831,0.21563542052612078,13471
