@@ -1,0 +1,544 @@
+{% extends "base.html" %}
+{% set title = page.title %}
+{% set body_class = "app-body page-" ~ page_key %}
+{% block body %}
+<script>
+    const SESSION_ID = "{{ browser.session_id }}";
+    const ACTOR_TYPE = "{{ browser.actor_type }}";
+    const BOT_TYPE = "{{ browser.bot_type }}";
+    const PAGE_NAME = "{{ page.page_name }}";
+</script>
+
+<div class="app-shell">
+    <header class="topbar">
+        <a href="/" class="brand-lockup">
+            <span class="brand-mark">CB</span>
+            <span>
+                <strong>Coordinated Bot Lab</strong>
+                <small>Behavioural Detection Platform</small>
+            </span>
+        </a>
+        <nav class="topnav">
+            <a href="/" class="{{ 'active' if page_key == 'landing' else '' }}" aria-current="{{ 'page' if page_key == 'landing' else 'false' }}">Home</a>
+            <a href="/login" class="{{ 'active' if page_key == 'login' else '' }}" aria-current="{{ 'page' if page_key == 'login' else 'false' }}">Login</a>
+            <a href="/search" class="{{ 'active' if page_key == 'search' else '' }}" aria-current="{{ 'page' if page_key == 'search' else 'false' }}">Search</a>
+            <a href="/browse" class="{{ 'active' if page_key == 'browse' else '' }}" aria-current="{{ 'page' if page_key == 'browse' else 'false' }}">Browse</a>
+            <a href="/form" class="{{ 'active' if page_key == 'form' else '' }}" aria-current="{{ 'page' if page_key == 'form' else 'false' }}">Form</a>
+            <a href="/dashboard">Dashboard</a>
+        </nav>
+        <div class="header-meta">
+            <div class="capture-status">
+                <span class="status-dot"></span>
+                <span>Live capture enabled</span>
+            </div>
+            <div class="session-strip">
+                <span class="pill {{ browser.actor_type }}">{{ browser.actor_type }}</span>
+                <span>{{ browser.bot_type }}</span>
+                <span>{{ browser.session_id[:8] }}...</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main" id="mainContent">
+        <section class="journey-strip">
+            <div class="journey-intro">
+                <p class="eyebrow">{{ page.eyebrow }}</p>
+                <div class="hero-chip-row">
+                    <span class="hero-chip">Session {{ browser.session_id[:8] }}...</span>
+                    <span class="hero-chip">{{ browser.actor_type|title }} actor</span>
+                    <span class="hero-chip">{{ browser.bot_type|replace('_', ' ')|title }}</span>
+                </div>
+            </div>
+            <div class="journey-steps" aria-label="User journey progress">
+                <a href="/" class="journey-step {{ 'is-active' if page_key == 'landing' else '' }} {{ 'is-complete' if page_key in ['login', 'search', 'browse', 'form'] else '' }}">
+                    <span class="step-index">01</span>
+                    <span class="step-copy">
+                        <strong>Landing</strong>
+                        <small>Orientation</small>
+                    </span>
+                </a>
+                <a href="/login" class="journey-step {{ 'is-active' if page_key == 'login' else '' }} {{ 'is-complete' if page_key in ['search', 'browse', 'form'] else '' }}">
+                    <span class="step-index">02</span>
+                    <span class="step-copy">
+                        <strong>Login</strong>
+                        <small>Intent capture</small>
+                    </span>
+                </a>
+                <a href="/search" class="journey-step {{ 'is-active' if page_key == 'search' else '' }} {{ 'is-complete' if page_key in ['browse', 'form'] else '' }}">
+                    <span class="step-index">03</span>
+                    <span class="step-copy">
+                        <strong>Search</strong>
+                        <small>Exploration</small>
+                    </span>
+                </a>
+                <a href="/browse" class="journey-step {{ 'is-active' if page_key == 'browse' else '' }} {{ 'is-complete' if page_key == 'form' else '' }}">
+                    <span class="step-index">04</span>
+                    <span class="step-copy">
+                        <strong>Browse</strong>
+                        <small>Reading cadence</small>
+                    </span>
+                </a>
+                <a href="/form" class="journey-step {{ 'is-active' if page_key == 'form' else '' }}">
+                    <span class="step-index">05</span>
+                    <span class="step-copy">
+                        <strong>Form</strong>
+                        <small>Completion style</small>
+                    </span>
+                </a>
+            </div>
+        </section>
+
+        <section class="hero-slab">
+            <div class="hero-copy">
+                <p class="eyebrow">{{ page.eyebrow }}</p>
+                <h1>{{ page.headline }}</h1>
+                <p class="lead">{{ page.description }}</p>
+                <div class="hero-actions">
+                    <a class="btn primary" href="/dashboard">Open Dashboard</a>
+                    <a class="btn secondary" href="/?reset_session=1">Reset Human Session</a>
+                </div>
+                <div class="hero-note">
+                    <strong>Design intent:</strong>
+                    This UI balances narrative clarity for human testers with dense interaction surfaces that produce rich event streams for the detector.
+                </div>
+            </div>
+            <aside class="hero-side">
+                {% if page_key == "landing" %}
+                <figure class="hero-visual">
+                    <img src="/static/images/landing-hero.png" alt="Landing page concept for the coordinated bot lab">
+                </figure>
+                {% else %}
+                <div class="page-focus-card">
+                    <span class="eyebrow">Page Focus</span>
+                    <h3>{{ page.title }}</h3>
+                    <ul class="focus-list">
+                        <li>Session context remains visible while the capture script records activity.</li>
+                        <li>Human-friendly affordances still create useful behavioural contrast for the models.</li>
+                        <li>Movement, hesitation, and click order all influence downstream scoring.</li>
+                    </ul>
+                </div>
+                {% endif %}
+                <div class="mini-stat-grid">
+                    <div class="mini-stat">
+                        <span>Session</span>
+                        <strong>{{ browser.session_id[:8] }}...</strong>
+                    </div>
+                    <div class="mini-stat">
+                        <span>Actor Type</span>
+                        <strong>{{ browser.actor_type }}</strong>
+                    </div>
+                    <div class="mini-stat">
+                        <span>Bot Label</span>
+                        <strong>{{ browser.bot_type }}</strong>
+                    </div>
+                    <div class="mini-stat accent">
+                        <span>Capture Mode</span>
+                        <strong>Browser telemetry</strong>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        {% if page_key == "landing" %}
+        <section class="story-grid">
+            <article class="surface-card story-card">
+                <span class="panel-kicker">Capture</span>
+                <h3>Generate realistic traces</h3>
+                <p>Navigate the product as a human, then compare that trace against fast, human-like, and coordinated bot behaviour.</p>
+                <strong class="story-value">5-page flow</strong>
+            </article>
+            <article class="surface-card story-card">
+                <span class="panel-kicker">Score</span>
+                <h3>Fuse multiple signals</h3>
+                <p>Rule flags, model probabilities, and short-window similarity all contribute to a more trustworthy risk decision.</p>
+                <strong class="story-value">3 scoring lenses</strong>
+            </article>
+            <article class="surface-card story-card">
+                <span class="panel-kicker">Investigate</span>
+                <h3>Review coordinated clusters</h3>
+                <p>The admin view helps analysts spot synchronized activity patterns instead of reading isolated session logs.</p>
+                <strong class="story-value">Group-first review</strong>
+            </article>
+        </section>
+
+        <section class="feature-grid">
+            <article class="surface-card feature-card">
+                <h3>Guided User App</h3>
+                <p>Move through realistic login, search, browsing, and form pages to generate human interaction traces for the detector.</p>
+                <div class="link-stack">
+                    <a href="/login">Open Login Flow</a>
+                    <a href="/search">Open Search Flow</a>
+                    <a href="/browse">Open Browse Flow</a>
+                    <a href="/form">Open Form Flow</a>
+                </div>
+            </article>
+            <article class="surface-card feature-card">
+                <h3>Detection Pipeline</h3>
+                <p>The platform captures raw events, builds behavioural fingerprints, scores sessions with ML, and highlights suspicious coordination groups.</p>
+                <ul class="chip-list">
+                    <li>Event Logging</li>
+                    <li>Session Features</li>
+                    <li>Window Models</li>
+                    <li>Coordination Alerts</li>
+                </ul>
+            </article>
+            <article class="surface-card feature-card accent">
+                <h3>Demo Workflow</h3>
+                <p>Use the user pages manually, then switch to the dashboard to trigger fast, human-like, and coordinated bot sessions from one place.</p>
+                <code class="snippet">/dashboard -> Demo Controls -> Run Full Demo</code>
+            </article>
+        </section>
+
+        <section class="path-grid">
+            <article class="surface-card path-card">
+                <span class="step-index">01</span>
+                <h3>Capture</h3>
+                <p>Clicks, scrolls, keydowns, and focus shifts build a fine-grained behavioural record.</p>
+            </article>
+            <article class="surface-card path-card">
+                <span class="step-index">02</span>
+                <h3>Engineer</h3>
+                <p>Sessions and time windows are transformed into timing, ratio, entropy, and repetition features.</p>
+            </article>
+            <article class="surface-card path-card">
+                <span class="step-index">03</span>
+                <h3>Score</h3>
+                <p>Rules and classifiers estimate how likely each session is to be automated.</p>
+            </article>
+            <article class="surface-card path-card">
+                <span class="step-index">04</span>
+                <h3>Investigate</h3>
+                <p>Clustered similarity reveals when multiple bot sessions move together too closely.</p>
+            </article>
+        </section>
+
+        <section class="feature-grid visual-grid">
+            <article class="surface-card visual-card">
+                <img src="/static/images/human-journey.png" alt="Human interaction journey through the application">
+                <div class="visual-copy">
+                    <h3>Human Journey</h3>
+                    <p>Use the login, search, browse, and form pages to create the varied pacing and interaction paths expected from real users.</p>
+                </div>
+            </article>
+            <article class="surface-card visual-card">
+                <img src="/static/images/bot-vs-human-behaviour.png" alt="Comparison of bot behaviour and human behaviour">
+                <div class="visual-copy">
+                    <h3>Bot vs Human Behaviour</h3>
+                    <p>The detector looks for differences in timing, navigation repetition, and event cadence across short behavioural windows.</p>
+                </div>
+            </article>
+            <article class="surface-card visual-card">
+                <img src="/static/images/coordinated-bot-cluster.png" alt="Illustration of a coordinated bot cluster">
+                <div class="visual-copy">
+                    <h3>Coordinated Bot Cluster</h3>
+                    <p>Group-level analytics spotlight sessions that move together too closely to be organic, even when each one looks somewhat human.</p>
+                </div>
+            </article>
+        </section>
+
+        <section class="journey-footer">
+            <article class="journey-card">
+                <span class="panel-kicker">Start the walkthrough</span>
+                <h3>Begin with login capture</h3>
+                <p>Typing cadence and submission timing are often the first clear behavioural separators.</p>
+            </article>
+            <a href="/login" class="journey-card journey-card-link">
+                <span class="panel-kicker">Next up</span>
+                <h3>Go to Login</h3>
+                <p>Move into the first interaction-heavy page.</p>
+            </a>
+        </section>
+        {% elif page_key == "login" %}
+        <section class="content-grid two-col">
+            <article class="surface-card surface-card-form">
+                <div class="section-head">
+                    <div>
+                        <span class="panel-kicker">Authentication capture</span>
+                        <h3>Account Sign In</h3>
+                    </div>
+                    <span class="section-note">keystrokes and intent</span>
+                </div>
+                <p class="panel-lead">The form is intentionally calm and low-friction so hesitation, burst typing, and checkbox intent remain easy to observe.</p>
+                <div class="form-progress-shell">
+                    <div class="metric-row">
+                        <span>Interaction richness</span>
+                        <strong data-progress-text>0% complete</strong>
+                    </div>
+                    <div class="progress-track">
+                        <span class="progress-bar" data-progress-bar></span>
+                    </div>
+                </div>
+                <form class="stack-form" data-track-form="login_form" data-progress-form>
+                    <label>Email Address
+                        <input type="email" id="loginEmail" name="email" autocomplete="email" placeholder="researcher@example.com">
+                    </label>
+                    <label>Password
+                        <input type="password" id="loginPassword" name="password" autocomplete="current-password" placeholder="Enter your password">
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="remember_me">
+                        <span>Remember this session on this device</span>
+                    </label>
+                    <button type="submit" id="loginSubmit">Sign In Securely</button>
+                </form>
+                <p class="form-status" data-form-status>Submissions stay on this page so you can safely keep generating behavioural signals.</p>
+                <div class="trust-row">
+                    <span class="trust-pill">Focus events tracked</span>
+                    <span class="trust-pill">Typing cadence tracked</span>
+                    <span class="trust-pill">Click order tracked</span>
+                </div>
+            </article>
+
+            <div class="stack-column">
+                <article class="surface-card note-card">
+                    <h3>Signals Captured Here</h3>
+                    <div class="signal-list">
+                        <div><strong>Typing rhythm</strong><span>keydown bursts, pauses, and pacing</span></div>
+                        <div><strong>Focus behaviour</strong><span>window focus changes and checkbox interaction</span></div>
+                        <div><strong>Submit timing</strong><span>reaction time before final action</span></div>
+                    </div>
+                </article>
+                <article class="surface-card">
+                    <h3>Session Expectations</h3>
+                    <ul class="focus-list">
+                        <li>Humans usually vary typing speed and cursor movement before submitting.</li>
+                        <li>Fast bots compress the same sequence into tight timing bands.</li>
+                        <li>Human-like bots add noise, but often still reveal repeated structure.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="journey-footer">
+            <a href="/" class="journey-card journey-card-link">
+                <span class="panel-kicker">Previous</span>
+                <h3>Back to Home</h3>
+                <p>Review the full platform overview again.</p>
+            </a>
+            <a href="/search" class="journey-card journey-card-link">
+                <span class="panel-kicker">Next</span>
+                <h3>Continue to Search</h3>
+                <p>Move into content exploration and result selection patterns.</p>
+            </a>
+        </section>
+        {% elif page_key == "search" %}
+        <section class="content-grid two-col">
+            <article class="surface-card surface-card-form">
+                <div class="section-head">
+                    <div>
+                        <span class="panel-kicker">Exploration space</span>
+                        <h3>Search Workspace</h3>
+                    </div>
+                    <span class="section-note">query and target choice</span>
+                </div>
+                <p class="panel-lead">Search behaviour is useful because the system can compare the pace of typing, click preference, and result switching against later actions.</p>
+                <div class="search-box" role="search" aria-label="Search bot detection data">
+                    <label class="sr-only" for="searchQuery">Search alerts, bot signatures, or cluster reviews</label>
+                    <input type="text" id="searchQuery" placeholder="Search alerts, bot signatures, or cluster reviews">
+                    <button type="button" id="searchAction">Search</button>
+                </div>
+                <p id="searchWorkspaceHint" class="context-caption">Type a query, then open one of the two dossiers to compare click preference and exploration flow.</p>
+                <div class="query-chip-row">
+                    <button type="button" class="query-chip" data-query="coordinated timing drift">Coordinated timing drift</button>
+                    <button type="button" class="query-chip" data-query="behavioural fingerprint entropy">Behavioural fingerprint entropy</button>
+                    <button type="button" class="query-chip" data-query="fast bot alert digest">Fast bot alert digest</button>
+                </div>
+                <div class="result-list">
+                    <a href="#result-1" id="searchResultAlertDigest" class="result-tile" data-target-id="result-1">
+                        <strong>Alert Digest</strong>
+                        <span>Latest flagged sessions ranked by final risk.</span>
+                    </a>
+                    <a href="#result-2" id="searchResultCoordinationReview" class="result-tile" data-target-id="result-2">
+                        <strong>Coordination Review</strong>
+                        <span>Cluster evidence with similarity and timing alignment.</span>
+                    </a>
+                </div>
+            </article>
+
+            <div class="stack-column">
+                <article class="surface-card">
+                    <h3>Context Panel</h3>
+                    <p class="context-caption">Select a dossier to inspect matching evidence and how the app narrates that behaviour.</p>
+                    <div class="context-stack">
+                        <div id="result-1" class="context-card is-active">
+                            <span class="panel-kicker">Alert digest</span>
+                            <p>Search exploration creates lightweight navigation and click patterns that are useful for short-window bot scoring.</p>
+                            <ul class="focus-list">
+                                <li>Best for comparing event rates and high-confidence sessions.</li>
+                                <li>Usually clicked first by fast automation and first-time analysts alike.</li>
+                            </ul>
+                        </div>
+                        <div id="result-2" class="context-card">
+                            <span class="panel-kicker">Coordination review</span>
+                            <p>Repeated result targeting and highly consistent timing can indicate automation or group coordination.</p>
+                            <ul class="focus-list">
+                                <li>Best for linking suspicious windows across bot sessions.</li>
+                                <li>Useful when isolated model scores are not enough on their own.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+                <article class="surface-card note-card">
+                    <h3>Interaction Lens</h3>
+                    <div class="signal-list">
+                        <div><strong>Query phrasing</strong><span>typed intent and cadence</span></div>
+                        <div><strong>Result targeting</strong><span>which destination is chosen first</span></div>
+                        <div><strong>Follow-up clicks</strong><span>how rapidly the second option is explored</span></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="journey-footer">
+            <a href="/login" class="journey-card journey-card-link">
+                <span class="panel-kicker">Previous</span>
+                <h3>Return to Login</h3>
+                <p>Inspect the authentication step again.</p>
+            </a>
+            <a href="/browse" class="journey-card journey-card-link">
+                <span class="panel-kicker">Next</span>
+                <h3>Continue to Browse</h3>
+                <p>Transition from intent to reading and scrolling cadence.</p>
+            </a>
+        </section>
+        {% elif page_key == "browse" %}
+        <section class="feature-grid browse-grid">
+            <article class="surface-card">
+                <span class="panel-kicker">Reading action</span>
+                <h3>Threat Intelligence Brief</h3>
+                <p>Read through the brief and interact with content cards as a normal analyst would.</p>
+                <a href="#article-1" id="browseOpenBrief" class="text-link">Open Brief</a>
+            </article>
+            <article class="surface-card">
+                <span class="panel-kicker">Sequence review</span>
+                <h3>Timeline Review</h3>
+                <p>Investigate timing patterns and how they differ between human and automated sessions.</p>
+                <a href="#article-2" id="browseReviewTimeline" class="text-link">Review Timeline</a>
+            </article>
+            <article class="surface-card">
+                <span class="panel-kicker">Stateful action</span>
+                <h3>Insight Save</h3>
+                <p>Bookmarking and delayed reading actions help create more realistic browsing behaviour.</p>
+                <button type="button" id="bookmarkInsight" aria-pressed="false">Bookmark Insight</button>
+                <p id="bookmarkStatus" class="form-status compact">Bookmark is inactive. Toggle it to create a deliberate state change.</p>
+            </article>
+        </section>
+
+        <section class="reading-strip">
+            <div id="article-1" class="reading-card is-active">
+                <span class="panel-kicker">Brief</span>
+                <h3>Behavioural Summary</h3>
+                <p>Humans usually produce more varied pauses, more scattered scroll depth, and less repeated transition structure than scripted sessions.</p>
+            </div>
+            <div id="article-2" class="reading-card">
+                <span class="panel-kicker">Timeline</span>
+                <h3>Coordination Note</h3>
+                <p>Coordinated bots often move together in short windows, creating high similarity blocks that stand out in the analysis dashboard.</p>
+            </div>
+        </section>
+
+        <section class="content-grid two-col">
+            <article class="surface-card note-card">
+                <h3>What This Screen Measures</h3>
+                <div class="signal-list">
+                    <div><strong>Scroll cadence</strong><span>distance, pause, and return behaviour</span></div>
+                    <div><strong>Reading sequence</strong><span>which card opens first and for how long</span></div>
+                    <div><strong>Bookmark state</strong><span>deliberate action versus scripted click-through</span></div>
+                </div>
+            </article>
+            <article class="surface-card">
+                <h3>Analyst UX Goal</h3>
+                <p class="panel-lead">The page is intentionally calmer than the dashboard so humans can browse without stress while still producing measurable pauses and transitions.</p>
+                <ul class="focus-list">
+                    <li>Short content blocks prevent cognitive overload.</li>
+                    <li>Anchored links create meaningful scroll and focus patterns.</li>
+                    <li>Bookmark feedback adds a lightweight stateful moment.</li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="journey-footer">
+            <a href="/search" class="journey-card journey-card-link">
+                <span class="panel-kicker">Previous</span>
+                <h3>Back to Search</h3>
+                <p>Revisit query and result targeting patterns.</p>
+            </a>
+            <a href="/form" class="journey-card journey-card-link">
+                <span class="panel-kicker">Next</span>
+                <h3>Continue to Form</h3>
+                <p>End the workflow with richer field transitions and completion signals.</p>
+            </a>
+        </section>
+        {% elif page_key == "form" %}
+        <section class="content-grid two-col">
+            <article class="surface-card surface-card-form">
+                <div class="section-head">
+                    <div>
+                        <span class="panel-kicker">Completion capture</span>
+                        <h3>Application Form</h3>
+                    </div>
+                    <span class="section-note">field transitions and closure</span>
+                </div>
+                <p class="panel-lead">The final step uses a slightly richer composition so humans can settle into a realistic completion rhythm instead of tapping through a sparse form.</p>
+                <div class="form-progress-shell">
+                    <div class="metric-row">
+                        <span>Form completion</span>
+                        <strong data-progress-text>0% complete</strong>
+                    </div>
+                    <div class="progress-track">
+                        <span class="progress-bar" data-progress-bar></span>
+                    </div>
+                </div>
+                <form class="stack-form" data-track-form="application_form" data-progress-form>
+                    <label>Full Name
+                        <input type="text" id="fullName" name="full_name" autocomplete="name" placeholder="Your full name">
+                    </label>
+                    <label>Organisation
+                        <input type="text" id="organisation" name="organisation" autocomplete="organization" placeholder="Research Lab or Company">
+                    </label>
+                    <label>Use Case
+                        <textarea id="useCase" name="use_case" rows="5" placeholder="Describe your monitoring or security use case"></textarea>
+                    </label>
+                    <button type="submit" id="formSubmit">Submit Application</button>
+                </form>
+                <p class="form-status" data-form-status>Completion metrics update as fields fill in, helping the interaction feel guided without blocking submission.</p>
+            </article>
+
+            <div class="stack-column">
+                <article class="surface-card note-card">
+                    <h3>What This Page Adds</h3>
+                    <div class="signal-list">
+                        <div><strong>Field transitions</strong><span>how users move between tasks</span></div>
+                        <div><strong>Typing consistency</strong><span>burst length and form pacing</span></div>
+                        <div><strong>Completion style</strong><span>final submit behaviour and pause density</span></div>
+                    </div>
+                </article>
+                <article class="surface-card">
+                    <h3>Why the UX is richer here</h3>
+                    <ul class="focus-list">
+                        <li>Longer inputs create more realistic typing bursts.</li>
+                        <li>Form progress reduces uncertainty without forcing a wizard flow.</li>
+                        <li>The final submit gives the detector a clean end-of-session signal.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="journey-footer">
+            <a href="/browse" class="journey-card journey-card-link">
+                <span class="panel-kicker">Previous</span>
+                <h3>Back to Browse</h3>
+                <p>Return to reading and scrolling interactions.</p>
+            </a>
+            <a href="/dashboard" class="journey-card journey-card-link">
+                <span class="panel-kicker">Next</span>
+                <h3>Open Dashboard</h3>
+                <p>Inspect how the captured session appears in the analytics view.</p>
+            </a>
+        </section>
+        {% endif %}
+    </main>
+</div>
+
+<script src="/static/script.js"></script>
+{% endblock %}
