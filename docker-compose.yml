@@ -1,0 +1,43 @@
+# Full stack: Postgres + Redis + backend (Person 1) + ML service (Person 2) + Next.js (Person 3).
+# NOT RUN in the build sandbox (no Docker there). Copy .env.example to .env and set the secrets first.
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment: { POSTGRES_DB: fairdrop, POSTGRES_USER: fairdrop, POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}" }
+    volumes: [fairdrop_pg:/var/lib/postgresql/data]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U fairdrop -d fairdrop"], interval: 5s, timeout: 3s, retries: 20 }
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: [fairdrop_redis:/data]
+    healthcheck: { test: ["CMD", "redis-cli", "ping"], interval: 5s, timeout: 3s, retries: 20 }
+  ml:
+    build: { context: ., dockerfile: ml_api/Dockerfile }
+    ports: ["8001:8001"]
+  api:
+    build: ./backend
+    environment:
+      ENVIRONMENT: production
+      DATABASE_URL: postgresql+psycopg2://fairdrop:${POSTGRES_PASSWORD}@postgres:5432/fairdrop
+      REDIS_URL: redis://redis:6379/0
+      REDIS_REQUIRED: "true"
+      HMAC_SECRET: "${HMAC_SECRET:?set HMAC_SECRET}"
+      ADMIN_API_KEY: "${ADMIN_API_KEY:?set ADMIN_API_KEY}"
+      INTEGRATION_API_KEY: "${INTEGRATION_API_KEY:?set INTEGRATION_API_KEY}"
+      ML_API_URL: http://ml:8001
+      ML_SYNC_INTERVAL_SECONDS: "${ML_SYNC_INTERVAL_SECONDS:-0}"
+      CORS_ORIGINS: http://localhost:3000
+    depends_on: { postgres: { condition: service_healthy }, redis: { condition: service_healthy } }
+    command: ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2"]
+    ports: ["8000:8000"]
+  web:
+    build: { context: ./frontend, args: { NEXT_PUBLIC_FAIRDROP_LIVE: "1", NEXT_PUBLIC_ML_API_URL: "http://localhost:8001" } }
+    environment:
+      FAIRDROP_API_URL: http://api:8000
+      FAIRDROP_ADMIN_KEY: "${ADMIN_API_KEY}"
+      FAIRDROP_INTEGRATION_KEY: "${INTEGRATION_API_KEY}"
+      FAIRDROP_COOKIE_SECRET: "${FAIRDROP_COOKIE_SECRET:?set FAIRDROP_COOKIE_SECRET}"
+      FAIRDROP_ADMIN_PASSWORD: "${FAIRDROP_ADMIN_PASSWORD:-FairDrop@2026}"
+    depends_on: [api]
+    ports: ["3000:3000"]
+volumes: { fairdrop_pg: {}, fairdrop_redis: {} }
