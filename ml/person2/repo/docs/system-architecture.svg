@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900" role="img" aria-labelledby="title desc">
+  <title id="title">Coordinated Bot Detection Platform System Architecture</title>
+  <desc id="desc">Architecture diagram showing event capture, feature engineering, models, coordination analysis, risk fusion, and dashboard output.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f7fbff"/>
+      <stop offset="100%" stop-color="#eef6f1"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#155e75"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <linearGradient id="slate" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="10" refY="7" orient="auto">
+      <path d="M0,0 L14,7 L0,14 z" fill="#475569"/>
+    </marker>
+    <style>
+      .title { font: 700 34px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .section { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #ffffff; }
+      .boxTitle { font: 700 20px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .boxText { font: 400 16px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .pillText { font: 700 15px 'Segoe UI', Arial, sans-serif; fill: #ffffff; letter-spacing: 0.5px; }
+      .label { font: 600 15px 'Segoe UI', Arial, sans-serif; fill: #475569; }
+      .card { fill: #ffffff; stroke: #dbe4ee; stroke-width: 2; rx: 26; ry: 26; filter: url(#shadow); }
+      .line { stroke: #64748b; stroke-width: 4; fill: none; marker-end: url(#arrow); }
+      .soft { fill: #eff6ff; stroke: #bfdbfe; stroke-width: 2; rx: 18; ry: 18; }
+      .soft2 { fill: #f0fdf4; stroke: #bbf7d0; stroke-width: 2; rx: 18; ry: 18; }
+      .soft3 { fill: #fff7ed; stroke: #fed7aa; stroke-width: 2; rx: 18; ry: 18; }
+      .soft4 { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 2; rx: 18; ry: 18; }
+    </style>
+  </defs>
+
+  <rect width="1400" height="900" fill="url(#bg)"/>
+
+  <text x="700" y="62" text-anchor="middle" class="title">Coordinated Bot Detection Platform</text>
+  <text x="700" y="95" text-anchor="middle" class="subtitle">From browser interaction capture to fused coordination-aware risk alerts</text>
+
+  <rect x="70" y="150" width="250" height="54" rx="27" fill="url(#blue)"/>
+  <text x="195" y="184" text-anchor="middle" class="section">1. Behaviour Sources</text>
+
+  <rect class="card" x="60" y="225" width="270" height="240"/>
+  <rect class="soft" x="88" y="270" width="214" height="52"/>
+  <rect class="soft" x="88" y="334" width="214" height="52"/>
+  <rect class="soft" x="88" y="398" width="214" height="52"/>
+  <text x="195" y="258" text-anchor="middle" class="boxTitle">User App + Bots</text>
+  <text x="195" y="299" text-anchor="middle" class="boxText">Human journeys across</text>
+  <text x="195" y="319" text-anchor="middle" class="boxText">login, search, browse, form</text>
+  <text x="195" y="363" text-anchor="middle" class="boxText">Fast bot and human-like</text>
+  <text x="195" y="383" text-anchor="middle" class="boxText">automation via Selenium</text>
+  <text x="195" y="427" text-anchor="middle" class="boxText">Parallel coordinated bots</text>
+  <text x="195" y="447" text-anchor="middle" class="boxText">for group-level detection</text>
+
+  <rect x="398" y="150" width="250" height="54" rx="27" fill="url(#blue)"/>
+  <text x="523" y="184" text-anchor="middle" class="section">2. Event Ingestion</text>
+
+  <rect class="card" x="388" y="225" width="270" height="240"/>
+  <rect class="soft2" x="416" y="270" width="214" height="52"/>
+  <rect class="soft2" x="416" y="334" width="214" height="52"/>
+  <rect class="soft2" x="416" y="398" width="214" height="52"/>
+  <text x="523" y="258" text-anchor="middle" class="boxTitle">Capture Layer</text>
+  <text x="523" y="299" text-anchor="middle" class="boxText">Browser events posted to</text>
+  <text x="523" y="319" text-anchor="middle" class="boxText">Flask logging endpoints</text>
+  <text x="523" y="363" text-anchor="middle" class="boxText">CSV-backed event storage</text>
+  <text x="523" y="383" text-anchor="middle" class="boxText">plus optional raw JSON lines</text>
+  <text x="523" y="427" text-anchor="middle" class="boxText">Actor type and bot labels</text>
+  <text x="523" y="447" text-anchor="middle" class="boxText">preserved per session</text>
+
+  <rect x="726" y="150" width="250" height="54" rx="27" fill="url(#blue)"/>
+  <text x="851" y="184" text-anchor="middle" class="section">3. Feature Engineering</text>
+
+  <rect class="card" x="716" y="225" width="270" height="240"/>
+  <rect class="soft3" x="744" y="270" width="214" height="52"/>
+  <rect class="soft3" x="744" y="334" width="214" height="52"/>
+  <rect class="soft3" x="744" y="398" width="214" height="52"/>
+  <text x="851" y="258" text-anchor="middle" class="boxTitle">Behaviour Fingerprints</text>
+  <text x="851" y="299" text-anchor="middle" class="boxText">Counts, timing, ratios, idle</text>
+  <text x="851" y="319" text-anchor="middle" class="boxText">and session duration metrics</text>
+  <text x="851" y="363" text-anchor="middle" class="boxText">Entropy, repetition, and</text>
+  <text x="851" y="383" text-anchor="middle" class="boxText">bigram sequence features</text>
+  <text x="851" y="427" text-anchor="middle" class="boxText">Session-level and fixed-window</text>
+  <text x="851" y="447" text-anchor="middle" class="boxText">feature tables generated</text>
+
+  <rect x="1054" y="150" width="250" height="54" rx="27" fill="url(#blue)"/>
+  <text x="1179" y="184" text-anchor="middle" class="section">4. Detection Engines</text>
+
+  <rect class="card" x="1044" y="225" width="270" height="240"/>
+  <rect class="soft4" x="1072" y="258" width="214" height="48"/>
+  <rect class="soft4" x="1072" y="316" width="214" height="48"/>
+  <rect class="soft4" x="1072" y="374" width="214" height="62"/>
+  <text x="1179" y="246" text-anchor="middle" class="boxTitle">Scoring Stack</text>
+  <text x="1179" y="288" text-anchor="middle" class="boxText">Rules detect timing and</text>
+  <text x="1179" y="306" text-anchor="middle" class="boxText">repetition anomalies</text>
+  <text x="1179" y="346" text-anchor="middle" class="boxText">ML models score human</text>
+  <text x="1179" y="364" text-anchor="middle" class="boxText">vs bot likelihood</text>
+  <text x="1179" y="404" text-anchor="middle" class="boxText">Coordination engine finds</text>
+  <text x="1179" y="422" text-anchor="middle" class="boxText">similar near-synchronous</text>
+  <text x="1179" y="440" text-anchor="middle" class="boxText">bot windows and groups</text>
+
+  <path class="line" d="M330 345 L388 345"/>
+  <path class="line" d="M658 345 L716 345"/>
+  <path class="line" d="M986 345 L1044 345"/>
+
+  <rect x="350" y="535" width="700" height="62" rx="31" fill="url(#gold)"/>
+  <text x="700" y="574" text-anchor="middle" class="section">5. Risk Fusion and Explainability</text>
+
+  <rect class="card" x="270" y="625" width="860" height="148"/>
+  <text x="700" y="668" text-anchor="middle" class="boxTitle">Final Alert Construction</text>
+  <text x="700" y="704" text-anchor="middle" class="boxText">Weighted fusion blends rule score, individual model score, and coordination score into one final risk value.</text>
+  <text x="700" y="730" text-anchor="middle" class="boxText">Explanations include suspicious reasons, group membership, event-rate context, and model-health artifacts.</text>
+
+  <path class="line" d="M1179 465 L1179 565 L1050 565"/>
+  <path class="line" d="M851 465 L851 565"/>
+  <path class="line" d="M523 465 L523 565 L350 565"/>
+
+  <rect x="1120" y="635" width="200" height="56" rx="28" fill="url(#slate)"/>
+  <text x="1220" y="670" text-anchor="middle" class="pillText">DASHBOARD OUTPUT</text>
+  <path class="line" d="M1130 699 L1130 699 L1130 699"/>
+  <path class="line" d="M1130 699 L1130 699"/>
+  <path class="line" d="M1130 699 L1130 699"/>
+  <path class="line" d="M1130 699 L1130 699"/>
+  <path class="line" d="M1130 699 L1130 699"/>
+  <path class="line" d="M1130 699 L1130 699"/>
+  <path class="line" d="M1130 699 L1120 699"/>
+
+  <rect class="card" x="1120" y="708" width="220" height="118"/>
+  <text x="1230" y="744" text-anchor="middle" class="boxTitle">Admin Review</text>
+  <text x="1230" y="775" text-anchor="middle" class="boxText">Session table, risk bands,</text>
+  <text x="1230" y="795" text-anchor="middle" class="boxText">group alerts, and timelines</text>
+
+  <path class="line" d="M1130 684 L1130 767"/>
+
+  <text x="125" y="828" class="label">Data: events.csv, features.csv, window_features.csv, trained model artifacts</text>
+  <text x="125" y="855" class="label">Runtime: Flask app, Selenium demos, scikit-learn training, cosine-similarity coordination analysis</text>
+</svg>
