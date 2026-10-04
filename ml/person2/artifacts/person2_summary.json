@@ -1,0 +1,30 @@
+{
+  "primary_dataset_rows": 67352,
+  "primary_human_rows": 53858,
+  "primary_bot_rows": 13494,
+  "model1": {
+    "accuracy": 0.9792888426991314,
+    "precision": 0.9425749817117776,
+    "recall": 0.9547980733605039,
+    "f1": 0.9486471562672557,
+    "roc_auc": 0.9954790815924315,
+    "pr_auc": 0.9811318737717991,
+    "test_rows": 13471
+  },
+  "model2": {
+    "human_training_rows": 43086,
+    "threshold_95pct_human": 0.4830743793999816,
+    "heldout_human_false_positive_rate": 0.03369847753434831,
+    "heldout_bot_detection_rate": 0.21563542052612078,
+    "heldout_rows": 13471
+  },
+  "repo_campaign": {
+    "candidate_bot_windows": 168,
+    "suspicious_pairs": 441,
+    "campaign_groups": 9,
+    "largest_campaign_size": 28
+  },
+  "simulated_sessions": 30,
+  "simulated_events": 1110,
+  "simulated_campaign_groups": 26
+}
