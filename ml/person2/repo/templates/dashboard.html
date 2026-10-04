@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% set title = "Admin Dashboard" %}
+{% set body_class = "dashboard-body" %}
+{% block body %}
+<div class="dashboard-shell" id="mainContent">
+    <header class="dashboard-header">
+        <div class="dashboard-headline">
+            <p class="eyebrow">Admin Detection Dashboard</p>
+            <h1>Behavioural Risk Operations Center</h1>
+            <p class="lead">Monitor individual bot risk, compare short-window analytics, and surface coordinated attack groups in a calmer, faster-scanning command view.</p>
+            <div class="hero-actions">
+                <a class="btn secondary" href="/">Return to User App</a>
+                <button type="button" class="btn primary" id="refreshDashboardControl">Refresh Snapshot</button>
+            </div>
+            <div class="status-inline">
+                <div class="capture-status">
+                    <span class="status-dot"></span>
+                    <span>Live review stream</span>
+                </div>
+                <label class="toggle-card">
+                    <input id="autoRefreshToggle" type="checkbox" checked>
+                    <span>Auto refresh every 30 seconds</span>
+                </label>
+                <span id="dashboardUpdatedAt" class="status-meta">Waiting for dashboard data...</span>
+            </div>
+        </div>
+        <div class="dashboard-header-side">
+            <figure class="dashboard-preview">
+                <img src="/static/images/security-operations-dashboard.png" alt="Security operations dashboard concept">
+            </figure>
+            <div class="surface-card dashboard-sidecard">
+                <span class="panel-kicker">Operator note</span>
+                <h3>Designed for quick triage</h3>
+                <p>High-signal numbers are surfaced first, while the deeper session explanation stays one click away.</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="stats-grid stats-grid-hero" id="summaryCards"></section>
+
+    <section class="dashboard-grid">
+        <article class="panel panel-hero" id="postureCard">
+            <p>Loading security posture...</p>
+        </article>
+        <article class="panel panel-spotlight">
+            <div class="section-head">
+                <h3>Live Demo Status</h3>
+                <span class="section-note">automation trace</span>
+            </div>
+            <div id="demoStatus" class="explanation-card" aria-live="polite">
+                <p>Waiting for dashboard data...</p>
+            </div>
+        </article>
+    </section>
+
+    <section class="dashboard-grid dashboard-grid-triple">
+        <article class="panel">
+            <div class="section-head">
+                <h3>Model Health</h3>
+                <span class="section-note">training quality</span>
+            </div>
+            <div id="modelHealth" class="list-area"></div>
+        </article>
+        <article class="panel">
+            <div class="section-head">
+                <h3>Data Freshness</h3>
+                <span class="section-note">artifact status</span>
+            </div>
+            <div id="dataStatus" class="list-area"></div>
+        </article>
+        <article class="panel">
+            <div class="section-head">
+                <h3>Feature Summary</h3>
+                <span class="section-note">behaviour averages</span>
+            </div>
+            <div id="featureSummary" class="list-area"></div>
+        </article>
+    </section>
+
+    <section class="dashboard-grid">
+        <article class="panel">
+            <div class="section-head">
+                <h3>Demo Controls</h3>
+                <span class="section-note">browser-first workflow</span>
+            </div>
+            <div class="control-grid">
+                <button class="btn primary demo-action" data-action="fast_bot">Run Fast Bot</button>
+                <button class="btn primary demo-action" data-action="human_like_bot">Run Human-Like Bot</button>
+                <button class="btn primary demo-action" data-action="coordinated_bots">Run Coordinated Bots</button>
+                <button class="btn secondary demo-action" data-action="refresh_analytics">Refresh Analytics</button>
+                <button class="btn secondary demo-action control-span-2" data-action="full_demo">Run Full Demo</button>
+            </div>
+        </article>
+        <article class="panel">
+            <div class="section-head">
+                <h3>Coordinated Group Alerts</h3>
+                <span class="section-note">group-level detection</span>
+            </div>
+            <div id="groupAlerts" class="list-area"></div>
+        </article>
+    </section>
+
+    <section class="dashboard-grid">
+        <article class="panel">
+            <h3>Bot Mix</h3>
+            <div id="distributionChart" class="chart-card"></div>
+        </article>
+        <article class="panel">
+            <h3>Risk Bands</h3>
+            <div id="riskChart" class="chart-card"></div>
+        </article>
+    </section>
+
+    <section class="dashboard-grid">
+        <article class="panel">
+            <div class="section-head">
+                <h3>Session Timeline</h3>
+                <span class="section-note">ordered by session start</span>
+            </div>
+            <div id="timeline" class="timeline"></div>
+        </article>
+        <article class="panel">
+            <div class="section-head">
+                <h3>Selected Session</h3>
+                <span class="section-note">explanation view</span>
+            </div>
+            <div id="explanationPanel" class="explanation-card">
+                <p>Select a session row to view its strongest explanation details.</p>
+            </div>
+        </article>
+    </section>
+
+    <section class="dashboard-grid wide">
+        <article class="panel">
+            <div class="section-head session-toolbar">
+                <h3>Session Risk Table</h3>
+                <div class="toolbar-actions">
+                    <label class="toolbar-field toolbar-search">
+                        <span>Search</span>
+                        <input id="sessionSearch" type="search" placeholder="Search session, bot type, or reason">
+                    </label>
+                    <label class="table-filter">
+                        <span>Rows</span>
+                        <select id="sessionPageSize">
+                            <option value="8">8 Rows</option>
+                            <option value="12" selected>12 Rows</option>
+                            <option value="20">20 Rows</option>
+                        </select>
+                    </label>
+                    <label class="table-filter">
+                        <span>Filter</span>
+                        <select id="sessionFilter">
+                            <option value="all">All Sessions</option>
+                            <option value="human">Human</option>
+                            <option value="bot">Bot</option>
+                            <option value="high-risk">High Risk</option>
+                        </select>
+                    </label>
+                    <label class="table-filter">
+                        <span>Sort</span>
+                        <select id="sessionSort">
+                            <option value="risk_desc">Highest Risk</option>
+                            <option value="start_desc">Newest First</option>
+                            <option value="start_asc">Oldest First</option>
+                            <option value="rate_desc">Highest Event Rate</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div id="activeFilters" class="active-filter-bar" aria-live="polite"></div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Session</th>
+                            <th>Started</th>
+                            <th>Actor</th>
+                            <th>Bot Type</th>
+                            <th>Rule</th>
+                            <th>Model</th>
+                            <th>Coordination</th>
+                            <th>Final Risk</th>
+                            <th>Reasons</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sessionRows"></tbody>
+                </table>
+            </div>
+            <div class="table-footer">
+                <p id="sessionTableMeta" class="table-meta" aria-live="polite"></p>
+                <div class="pagination-shell" aria-label="Session table pagination">
+                    <button type="button" id="sessionPrevPage" class="pagination-btn">Previous</button>
+                    <div id="sessionPageButtons" class="pagination-pages" aria-live="polite"></div>
+                    <button type="button" id="sessionNextPage" class="pagination-btn">Next</button>
+                </div>
+            </div>
+        </article>
+    </section>
+</div>
+
+<script src="/static/dashboard.js"></script>
+{% endblock %}
