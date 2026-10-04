@@ -1,7 +1,0 @@
-'use client'
-import {useEffect,useState} from 'react';import {getPrefs,setPref} from '@/lib/prefs'
-export default function Settings(){const [p,setP]=useState<any>({});useEffect(()=>setP({...document.documentElement.dataset}),[])
-const set=(k:string,v:string)=>{setPref(k,v);setP({...p,[k]:v})}
-const Opt=({k,opts}:{k:string;opts:[string,string][]})=><div role="radiogroup" style={{display:'flex',gap:'.4rem',flexWrap:'wrap'}}>{opts.map(([v,l])=><button key={v} role="radio" aria-checked={p[k]===v} className={'btn '+(p[k]===v?'pri':'')} onClick={()=>set(k,v)}>{l}</button>)}</div>
-return<div className="g"><h2 className="eyebrow" style={{fontSize:".8rem"}}>Settings &amp; accessibility</h2><div className="card g"><div><h2>Theme</h2><Opt k="theme" opts={[['dark','Dark'],['light','Light']]}/></div><div><h2>Font size</h2><Opt k="font" opts={[['s','Small'],['m','Medium'],['l','Large'],['xl','X-Large']]}/></div><div><h2>Contrast</h2><Opt k="contrast" opts={[['normal','Normal'],['high','High contrast']]}/></div><div><h2>Motion</h2><Opt k="motion" opts={[['full','Full'],['reduce','Reduced']]}/></div><div><h2>Dyslexia-friendly type</h2><Opt k="dys" opts={[['off','Off'],['on','On']]}/></div></div>
-<div className="card"><h2>Data source</h2><p>SIMULATION MODE: <code>lib/sim.ts</code> implements <code>FairDropService</code>. A live adapter (WebSocket/SSE/polling) implementing the same interface replaces it with no UI changes. See README.</p></div></div>}
