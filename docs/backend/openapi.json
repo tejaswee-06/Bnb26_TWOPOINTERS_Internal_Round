@@ -1,0 +1,3040 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "Fair Drop API",
+  "description": "Distributed, adversarially resilient allocation backend",
+  "version": "3.0.0"
+ },
+ "paths": {
+  "/health": {
+   "get": {
+    "tags": [
+     "Health"
+    ],
+    "summary": "Health Check",
+    "operationId": "health_check_health_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/events": {
+   "post": {
+    "tags": [
+     "Events"
+    ],
+    "summary": "Create Event",
+    "operationId": "create_event_events_post",
+    "parameters": [
+     {
+      "name": "x-admin-key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Admin-Key"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/EventCreate"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/EventResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/events/{event_id}": {
+   "get": {
+    "tags": [
+     "Events"
+    ],
+    "summary": "Get Event",
+    "operationId": "get_event_events__event_id__get",
+    "parameters": [
+     {
+      "name": "event_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Event Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/EventResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/events/{event_id}/drop": {
+   "get": {
+    "tags": [
+     "Events"
+    ],
+    "summary": "Drop Info",
+    "description": "Public read model for the customer journey: phase, countdown, counts, inventory by ticket type, published commitment.",
+    "operationId": "drop_info_events__event_id__drop_get",
+    "parameters": [
+     {
+      "name": "event_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Event Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/events/{event_id}/proof": {
+   "get": {
+    "tags": [
+     "Events"
+    ],
+    "summary": "Drop Proof",
+    "description": "Commit-reveal bundle + canonical eligible list (opaque session ids). Available only after the seed is revealed at randomisation.",
+    "operationId": "drop_proof_events__event_id__proof_get",
+    "parameters": [
+     {
+      "name": "event_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Event Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/inventory/seed": {
+   "post": {
+    "tags": [
+     "Inventory"
+    ],
+    "summary": "Seed Inventory",
+    "operationId": "seed_inventory_inventory_seed_post",
+    "parameters": [
+     {
+      "name": "event_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 100,
+       "title": "Event Id"
+      }
+     },
+     {
+      "name": "count",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 100000,
+       "minimum": 1,
+       "default": 500,
+       "title": "Count"
+      }
+     },
+     {
+      "name": "ticket_type",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 60,
+         "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Ticket Type"
+      }
+     },
+     {
+      "name": "x-admin-key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Admin-Key"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/inventory/{event_id}": {
+   "get": {
+    "tags": [
+     "Inventory"
+    ],
+    "summary": "Inventory",
+    "operationId": "inventory_inventory__event_id__get",
+    "parameters": [
+     {
+      "name": "event_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Event Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/inventory/stats/{event_id}": {
+   "get": {
+    "tags": [
+     "Inventory"
+    ],
+    "summary": "Inventory Stats",
+    "operationId": "inventory_stats_inventory_stats__event_id__get",
+    "parameters": [
+     {
+      "name": "event_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Event Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/events/{event_id}/join": {
+   "post": {
+    "tags": [
+     "Queue & Sessions"
+    ],
+    "summary": "Join Event",
+    "operationId": "join_event_events__event_id__join_post",
+    "parameters": [
+     {
+      "name": "event_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Event Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JoinRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/SessionResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/queue/{session_id}": {
+   "get": {
+    "tags": [
+     "Queue & Sessions"
+    ],
+    "summary": "Queue Status",
+    "operationId": "queue_status_queue__session_id__get",
+    "parameters": [
+     {
+      "name": "session_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Session Id"
+      }
+     },
+     {
+      "name": "x-session-credential",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Session-Credential"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/SessionResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/queue/{session_id}/admit": {
+   "post": {
+    "tags": [
+     "Queue & Sessions"
+    ],
+    "summary": "Admit",
+    "operationId": "admit_queue__session_id__admit_post",
+    "parameters": [
+     {
+      "name": "session_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Session Id"
+      }
+     },
+     {
+      "name": "x-session-credential",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Session-Credential"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AdmitResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/sessions/{session_id}": {
+   "get": {
+    "tags": [
+     "Queue & Sessions"
+    ],
+    "summary": "Get Session",
+    "operationId": "get_session_sessions__session_id__get",
+    "parameters": [
+     {
+      "name": "session_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Session Id"
+      }
+     },
+     {
+      "name": "x-session-credential",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Session-Credential"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/SessionResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/allocation": {
+   "post": {
+    "tags": [
+     "Allocation"
+    ],
+    "summary": "Allocate",
+    "operationId": "allocate_allocation_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AllocationRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AllocationResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/reservations": {
+   "post": {
+    "tags": [
+     "Allocation"
+    ],
+    "summary": "Hold",
+    "operationId": "hold_reservations_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/HoldRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HoldResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/allocation/hold": {
+   "post": {
+    "tags": [
+     "Allocation"
+    ],
+    "summary": "Hold",
+    "operationId": "hold_allocation_hold_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/HoldRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HoldResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/allocation/confirm": {
+   "post": {
+    "tags": [
+     "Allocation"
+    ],
+    "summary": "Confirm",
+    "operationId": "confirm_allocation_confirm_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ConfirmRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ReservationResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/allocation/release": {
+   "post": {
+    "tags": [
+     "Allocation"
+    ],
+    "summary": "Release",
+    "operationId": "release_allocation_release_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReleaseRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ReservationResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/reservations/{reservation_id}/confirm": {
+   "post": {
+    "tags": [
+     "Allocation"
+    ],
+    "summary": "Confirm Reservation",
+    "operationId": "confirm_reservation_reservations__reservation_id__confirm_post",
+    "parameters": [
+     {
+      "name": "reservation_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Reservation Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ConfirmRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ReservationResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/reservations/{reservation_id}/release": {
+   "post": {
+    "tags": [
+     "Allocation"
+    ],
+    "summary": "Release Reservation",
+    "operationId": "release_reservation_reservations__reservation_id__release_post",
+    "parameters": [
+     {
+      "name": "reservation_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Reservation Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReleaseRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ReservationResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/verify/{allocation_id}": {
+   "get": {
+    "tags": [
+     "Verification"
+    ],
+    "summary": "Verify Allocation",
+    "operationId": "verify_allocation_verify__allocation_id__get",
+    "parameters": [
+     {
+      "name": "allocation_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Allocation Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/audit/{event_id}": {
+   "get": {
+    "tags": [
+     "Verification"
+    ],
+    "summary": "Audit",
+    "operationId": "audit_audit__event_id__get",
+    "parameters": [
+     {
+      "name": "event_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Event Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/integration/risk-events": {
+   "post": {
+    "tags": [
+     "Integration"
+    ],
+    "summary": "Ingest Risk Event",
+    "description": "Person 2 -> Person 1. Evaluates deterministic policy and records an explainable decision.\n\nML supplies evidence only; the response reports the policy's action. Idempotent on (session_id, event_id).",
+    "operationId": "ingest_risk_event_integration_risk_events_post",
+    "parameters": [
+     {
+      "name": "x-integration-key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Integration-Key"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RiskEvent"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/integration/risk-events/batch": {
+   "post": {
+    "tags": [
+     "Integration"
+    ],
+    "summary": "Ingest Risk Events",
+    "operationId": "ingest_risk_events_integration_risk_events_batch_post",
+    "parameters": [
+     {
+      "name": "x-integration-key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Integration-Key"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/RiskEvent"
+        },
+        "title": "Events"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/integration/ml/status": {
+   "get": {
+    "tags": [
+     "Integration"
+    ],
+    "summary": "Ml Status",
+    "operationId": "ml_status_integration_ml_status_get",
+    "parameters": [
+     {
+      "name": "x-integration-key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Integration-Key"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/integration/ml/sync": {
+   "post": {
+    "tags": [
+     "Integration"
+    ],
+    "summary": "Ml Sync",
+    "operationId": "ml_sync_integration_ml_sync_post",
+    "parameters": [
+     {
+      "name": "x-integration-key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Integration-Key"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/integration/decisions": {
+   "get": {
+    "tags": [
+     "Integration"
+    ],
+    "summary": "List Decisions",
+    "operationId": "list_decisions_integration_decisions_get",
+    "parameters": [
+     {
+      "name": "session_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Session Id"
+      }
+     },
+     {
+      "name": "campaign_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Campaign Id"
+      }
+     },
+     {
+      "name": "action",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Action"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 100,
+       "title": "Limit"
+      }
+     },
+     {
+      "name": "x-integration-key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Integration-Key"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/integration/policy/session/{session_id}": {
+   "get": {
+    "tags": [
+     "Integration"
+    ],
+    "summary": "Session Policy",
+    "operationId": "session_policy_integration_policy_session__session_id__get",
+    "parameters": [
+     {
+      "name": "session_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Session Id"
+      }
+     },
+     {
+      "name": "x-integration-key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Integration-Key"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/integration/allocation-events": {
+   "post": {
+    "tags": [
+     "Integration"
+    ],
+    "summary": "Publish Allocation Event",
+    "operationId": "publish_allocation_event_integration_allocation_events_post",
+    "parameters": [
+     {
+      "name": "x-integration-key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Integration-Key"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AllocationEvent"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/integration/sessions": {
+   "get": {
+    "tags": [
+     "Integration"
+    ],
+    "summary": "Live Session Roster",
+    "description": "Telemetry feed for Person 2: REAL live session ids with server-side join facts. RiskEvents for live customers must reference these ids.",
+    "operationId": "live_session_roster_integration_sessions_get",
+    "parameters": [
+     {
+      "name": "event_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Event Id"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 1000,
+       "title": "Limit"
+      }
+     },
+     {
+      "name": "x-integration-key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Integration-Key"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/policy/config": {
+   "get": {
+    "tags": [
+     "Policy"
+    ],
+    "summary": "Policy Config",
+    "operationId": "policy_config_policy_config_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/policy/challenge/{session_id}": {
+   "post": {
+    "tags": [
+     "Policy"
+    ],
+    "summary": "Issue Challenge",
+    "operationId": "issue_challenge_policy_challenge__session_id__post",
+    "parameters": [
+     {
+      "name": "session_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Session Id"
+      }
+     },
+     {
+      "name": "x-session-credential",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Session-Credential"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/policy/challenge/{session_id}/solve": {
+   "post": {
+    "tags": [
+     "Policy"
+    ],
+    "summary": "Solve Challenge",
+    "operationId": "solve_challenge_policy_challenge__session_id__solve_post",
+    "parameters": [
+     {
+      "name": "session_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Session Id"
+      }
+     },
+     {
+      "name": "x-session-credential",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Session-Credential"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SolveRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/admin/events/provision": {
+   "post": {
+    "tags": [
+     "Admin"
+    ],
+    "summary": "Provision",
+    "description": "Idempotent: create a FAIR event with typed inventory if it does not exist yet.",
+    "operationId": "provision_admin_events_provision_post",
+    "parameters": [
+     {
+      "name": "x-admin-key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Admin-Key"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ProvisionRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/admin/events/{event_id}/open": {
+   "post": {
+    "tags": [
+     "Admin"
+    ],
+    "summary": "Open Prequeue",
+    "operationId": "open_prequeue_admin_events__event_id__open_post",
+    "parameters": [
+     {
+      "name": "event_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Event Id"
+      }
+     },
+     {
+      "name": "seconds",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Seconds"
+      }
+     },
+     {
+      "name": "x-admin-key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Admin-Key"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/admin/events/{event_id}/{action}": {
+   "post": {
+    "tags": [
+     "Admin"
+    ],
+    "summary": "Operate",
+    "operationId": "operate_admin_events__event_id___action__post",
+    "parameters": [
+     {
+      "name": "event_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Event Id"
+      }
+     },
+     {
+      "name": "action",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Action"
+      }
+     },
+     {
+      "name": "x-admin-key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Admin-Key"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/admin/events/{event_id}/overview": {
+   "get": {
+    "tags": [
+     "Admin"
+    ],
+    "summary": "Overview",
+    "operationId": "overview_admin_events__event_id__overview_get",
+    "parameters": [
+     {
+      "name": "event_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Event Id"
+      }
+     },
+     {
+      "name": "x-admin-key",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "X-Admin-Key"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/resilience": {
+   "get": {
+    "tags": [
+     "Resilience"
+    ],
+    "summary": "Get Resilience",
+    "operationId": "get_resilience_resilience_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/metrics": {
+   "get": {
+    "tags": [
+     "Resilience"
+    ],
+    "summary": "Metrics",
+    "operationId": "metrics_metrics_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/": {
+   "get": {
+    "summary": "Root",
+    "operationId": "root__get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "AdmitResponse": {
+    "properties": {
+     "success": {
+      "type": "boolean",
+      "title": "Success"
+     },
+     "status": {
+      "type": "string",
+      "title": "Status"
+     },
+     "token": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Token"
+     },
+     "position": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Position"
+     },
+     "admission_limit": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Admission Limit"
+     },
+     "admission_expires_at": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Admission Expires At"
+     },
+     "policy_action": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Policy Action"
+     },
+     "policy_reason": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Policy Reason"
+     },
+     "retry_after_seconds": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Retry After Seconds"
+     },
+     "challenge_url": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Challenge Url"
+     },
+     "phase": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Phase"
+     }
+    },
+    "type": "object",
+    "required": [
+     "success",
+     "status"
+    ],
+    "title": "AdmitResponse"
+   },
+   "AllocationEvent": {
+    "properties": {
+     "event_id": {
+      "type": "string",
+      "title": "Event Id"
+     },
+     "session_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Session Id"
+     },
+     "allocation_id": {
+      "type": "integer",
+      "title": "Allocation Id"
+     },
+     "inventory_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Inventory Id"
+     },
+     "state": {
+      "type": "string",
+      "title": "State"
+     },
+     "idempotency_key": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Idempotency Key"
+     },
+     "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Timestamp"
+     }
+    },
+    "type": "object",
+    "required": [
+     "event_id",
+     "allocation_id",
+     "state",
+     "timestamp"
+    ],
+    "title": "AllocationEvent"
+   },
+   "AllocationRequest": {
+    "properties": {
+     "event_id": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Event Id"
+     },
+     "user_id": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "User Id"
+     },
+     "idempotency_key": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Idempotency Key"
+     },
+     "session_id": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 100,
+        "minLength": 1
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Session Id"
+     },
+     "session_credential": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 256,
+        "minLength": 16
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Session Credential"
+     },
+     "admission_token": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Admission Token"
+     },
+     "ticket_type": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 60,
+        "minLength": 1
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Ticket Type"
+     }
+    },
+    "type": "object",
+    "required": [
+     "event_id",
+     "user_id",
+     "idempotency_key"
+    ],
+    "title": "AllocationRequest"
+   },
+   "AllocationResponse": {
+    "properties": {
+     "success": {
+      "type": "boolean",
+      "title": "Success"
+     },
+     "status": {
+      "type": "string",
+      "title": "Status"
+     },
+     "allocation_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Allocation Id"
+     },
+     "item_code": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Item Code"
+     },
+     "message": {
+      "type": "string",
+      "title": "Message"
+     }
+    },
+    "type": "object",
+    "required": [
+     "success",
+     "status",
+     "message"
+    ],
+    "title": "AllocationResponse"
+   },
+   "ConfirmRequest": {
+    "properties": {
+     "reservation_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0.0,
+      "title": "Reservation Id"
+     },
+     "user_id": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "User Id"
+     },
+     "session_id": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 100,
+        "minLength": 1
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Session Id"
+     },
+     "session_credential": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 256,
+        "minLength": 16
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Session Credential"
+     },
+     "idempotency_key": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 200,
+        "minLength": 1
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Idempotency Key"
+     }
+    },
+    "type": "object",
+    "required": [
+     "reservation_id",
+     "user_id"
+    ],
+    "title": "ConfirmRequest"
+   },
+   "EventCreate": {
+    "properties": {
+     "event_id": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Event Id"
+     },
+     "name": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Name"
+     },
+     "admission_limit": {
+      "type": "integer",
+      "maximum": 1000000.0,
+      "minimum": 1.0,
+      "title": "Admission Limit",
+      "default": 100
+     },
+     "mode": {
+      "type": "string",
+      "pattern": "^(FIFO|FAIR)$",
+      "title": "Mode",
+      "default": "FIFO"
+     },
+     "prequeue_seconds": {
+      "type": "integer",
+      "maximum": 86400.0,
+      "minimum": 0.0,
+      "title": "Prequeue Seconds",
+      "default": 0
+     },
+     "auto_advance": {
+      "type": "boolean",
+      "title": "Auto Advance",
+      "default": true
+     }
+    },
+    "type": "object",
+    "required": [
+     "event_id",
+     "name"
+    ],
+    "title": "EventCreate"
+   },
+   "EventResponse": {
+    "properties": {
+     "event_id": {
+      "type": "string",
+      "title": "Event Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "status": {
+      "type": "string",
+      "title": "Status"
+     },
+     "admission_limit": {
+      "type": "integer",
+      "title": "Admission Limit"
+     },
+     "mode": {
+      "type": "string",
+      "title": "Mode",
+      "default": "FIFO"
+     },
+     "phase": {
+      "type": "string",
+      "title": "Phase",
+      "default": "ADMITTING"
+     }
+    },
+    "type": "object",
+    "required": [
+     "event_id",
+     "name",
+     "status",
+     "admission_limit"
+    ],
+    "title": "EventResponse"
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "type": "array",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+   },
+   "HoldRequest": {
+    "properties": {
+     "event_id": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Event Id"
+     },
+     "user_id": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "User Id"
+     },
+     "idempotency_key": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Idempotency Key"
+     },
+     "session_id": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 100,
+        "minLength": 1
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Session Id"
+     },
+     "session_credential": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 256,
+        "minLength": 16
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Session Credential"
+     },
+     "admission_token": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Admission Token"
+     },
+     "ticket_type": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 60,
+        "minLength": 1
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Ticket Type"
+     }
+    },
+    "type": "object",
+    "required": [
+     "event_id",
+     "user_id",
+     "idempotency_key"
+    ],
+    "title": "HoldRequest"
+   },
+   "HoldResponse": {
+    "properties": {
+     "success": {
+      "type": "boolean",
+      "title": "Success"
+     },
+     "status": {
+      "type": "string",
+      "title": "Status"
+     },
+     "reservation_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reservation Id"
+     },
+     "item_code": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Item Code"
+     },
+     "held_until": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date-time"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Held Until"
+     },
+     "ticket_type": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Ticket Type"
+     },
+     "message": {
+      "type": "string",
+      "title": "Message"
+     }
+    },
+    "type": "object",
+    "required": [
+     "success",
+     "status",
+     "message"
+    ],
+    "title": "HoldResponse"
+   },
+   "JoinRequest": {
+    "properties": {
+     "user_id": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "User Id"
+     },
+     "session_id": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 100,
+        "minLength": 1
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Session Id"
+     },
+     "credential": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 256,
+        "minLength": 16
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Credential"
+     }
+    },
+    "type": "object",
+    "required": [
+     "user_id"
+    ],
+    "title": "JoinRequest"
+   },
+   "ProvisionRequest": {
+    "properties": {
+     "event_id": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Event Id"
+     },
+     "name": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Name"
+     },
+     "admission_limit": {
+      "type": "integer",
+      "maximum": 1000000.0,
+      "minimum": 1.0,
+      "title": "Admission Limit",
+      "default": 100
+     },
+     "prequeue_seconds": {
+      "type": "integer",
+      "maximum": 86400.0,
+      "minimum": 1.0,
+      "title": "Prequeue Seconds",
+      "default": 60
+     },
+     "auto_advance": {
+      "type": "boolean",
+      "title": "Auto Advance",
+      "default": true
+     },
+     "ticket_types": {
+      "items": {
+       "$ref": "#/components/schemas/TicketTypeSeed"
+      },
+      "type": "array",
+      "maxItems": 20,
+      "minItems": 1,
+      "title": "Ticket Types"
+     }
+    },
+    "type": "object",
+    "required": [
+     "event_id",
+     "name",
+     "ticket_types"
+    ],
+    "title": "ProvisionRequest"
+   },
+   "ReleaseRequest": {
+    "properties": {
+     "reservation_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0.0,
+      "title": "Reservation Id"
+     },
+     "user_id": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "User Id"
+     },
+     "session_id": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 100,
+        "minLength": 1
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Session Id"
+     },
+     "session_credential": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 256,
+        "minLength": 16
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Session Credential"
+     },
+     "idempotency_key": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 200,
+        "minLength": 1
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Idempotency Key"
+     }
+    },
+    "type": "object",
+    "required": [
+     "reservation_id",
+     "user_id"
+    ],
+    "title": "ReleaseRequest"
+   },
+   "ReservationResponse": {
+    "properties": {
+     "success": {
+      "type": "boolean",
+      "title": "Success"
+     },
+     "status": {
+      "type": "string",
+      "title": "Status"
+     },
+     "reservation_id": {
+      "type": "integer",
+      "title": "Reservation Id"
+     },
+     "item_code": {
+      "type": "string",
+      "title": "Item Code"
+     },
+     "message": {
+      "type": "string",
+      "title": "Message"
+     }
+    },
+    "type": "object",
+    "required": [
+     "success",
+     "status",
+     "reservation_id",
+     "item_code",
+     "message"
+    ],
+    "title": "ReservationResponse"
+   },
+   "RiskEvent": {
+    "properties": {
+     "session_id": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Session Id"
+     },
+     "event_id": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Event Id"
+     },
+     "risk_score": {
+      "anyOf": [
+       {
+        "type": "number",
+        "maximum": 1.0,
+        "minimum": 0.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Risk Score"
+     },
+     "anomaly_score": {
+      "anyOf": [
+       {
+        "type": "number",
+        "maximum": 1.0,
+        "minimum": 0.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Anomaly Score"
+     },
+     "coordination_score": {
+      "anyOf": [
+       {
+        "type": "number",
+        "maximum": 1.0,
+        "minimum": 0.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Coordination Score"
+     },
+     "campaign_id": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 100
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Campaign Id"
+     },
+     "attack_type": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 100
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Attack Type"
+     },
+     "evidence": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "maxItems": 50,
+      "title": "Evidence"
+     },
+     "model_version": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Model Version"
+     },
+     "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Timestamp"
+     }
+    },
+    "type": "object",
+    "required": [
+     "session_id",
+     "event_id",
+     "model_version",
+     "timestamp"
+    ],
+    "title": "RiskEvent"
+   },
+   "SessionResponse": {
+    "properties": {
+     "session_id": {
+      "type": "string",
+      "title": "Session Id"
+     },
+     "event_id": {
+      "type": "string",
+      "title": "Event Id"
+     },
+     "user_id": {
+      "type": "string",
+      "title": "User Id"
+     },
+     "state": {
+      "type": "string",
+      "title": "State"
+     },
+     "position": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Position"
+     },
+     "queue_depth": {
+      "type": "integer",
+      "title": "Queue Depth",
+      "default": 0
+     },
+     "admitted": {
+      "type": "boolean",
+      "title": "Admitted",
+      "default": false
+     },
+     "credential": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Credential"
+     },
+     "admission_expires_at": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Admission Expires At"
+     },
+     "queue_sequence": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Queue Sequence"
+     },
+     "policy_action": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Policy Action"
+     },
+     "reservation": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reservation"
+     }
+    },
+    "type": "object",
+    "required": [
+     "session_id",
+     "event_id",
+     "user_id",
+     "state"
+    ],
+    "title": "SessionResponse"
+   },
+   "SolveRequest": {
+    "properties": {
+     "challenge": {
+      "type": "string",
+      "maxLength": 2000,
+      "minLength": 10,
+      "title": "Challenge"
+     },
+     "solution": {
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Solution"
+     }
+    },
+    "type": "object",
+    "required": [
+     "challenge",
+     "solution"
+    ],
+    "title": "SolveRequest"
+   },
+   "TicketTypeSeed": {
+    "properties": {
+     "ticket_type": {
+      "type": "string",
+      "maxLength": 60,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_-]+$",
+      "title": "Ticket Type"
+     },
+     "count": {
+      "type": "integer",
+      "maximum": 100000.0,
+      "minimum": 1.0,
+      "title": "Count"
+     }
+    },
+    "type": "object",
+    "required": [
+     "ticket_type",
+     "count"
+    ],
+    "title": "TicketTypeSeed"
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "type": "array",
+      "title": "Location"
+     },
+     "msg": {
+      "type": "string",
+      "title": "Message"
+     },
+     "type": {
+      "type": "string",
+      "title": "Error Type"
+     },
+     "input": {
+      "title": "Input"
+     },
+     "ctx": {
+      "type": "object",
+      "title": "Context"
+     }
+    },
+    "type": "object",
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError"
+   }
+  }
+ }
+}
