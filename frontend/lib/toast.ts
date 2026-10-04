@@ -1,0 +1,1 @@
+export function toast(msg: string, kind: 'info' | 'ok' | 'bad' = 'info') { if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('fd-toast', { detail: { msg, kind, id: Math.random() } })) }
