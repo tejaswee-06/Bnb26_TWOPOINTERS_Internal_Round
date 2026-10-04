@@ -1,0 +1,50 @@
+{
+  "status": "ready",
+  "message": "Window model trained successfully.",
+  "dataset_rows": 510,
+  "train_rows": 469,
+  "test_rows": 41,
+  "held_out_sessions": [
+    "ffd821a6-07ba-4dd2-99dc-3281a8e368fb",
+    "fe899d06-6d74-4e9f-8b3d-acbb4b408694"
+  ],
+  "label_counts": {
+    "human": 342,
+    "bot": 168
+  },
+  "logistic_accuracy": 0.9756,
+  "random_forest_accuracy": 0.9268,
+  "feature_columns": [
+    "total_events",
+    "click_count",
+    "scroll_count",
+    "keydown_count",
+    "mousemove_count",
+    "mean_interval",
+    "std_interval",
+    "min_interval",
+    "max_interval",
+    "session_duration",
+    "event_rate",
+    "click_ratio",
+    "scroll_ratio",
+    "keydown_ratio",
+    "mousemove_ratio",
+    "idle_ratio",
+    "longest_idle_gap",
+    "sequence_entropy",
+    "repetition_score",
+    "bigram_CC",
+    "bigram_CK",
+    "bigram_CS",
+    "bigram_CM",
+    "bigram_KC",
+    "bigram_KK",
+    "bigram_KS",
+    "bigram_MC",
+    "bigram_MS",
+    "bigram_SC",
+    "bigram_SK",
+    "bigram_SS"
+  ]
+}
