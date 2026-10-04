@@ -1,5 +1,0 @@
-'use client'
-import {useFD} from '@/lib/store';import {Graph} from '@/components/charts'
-export default function Camp(){const {last:l,events,cfg}=useFD()
-return<div className="g"><div className="card"><h2>Campaign / identity cluster graph</h2><Graph campaigns={l?l.campaigns:0} mult={cfg.mult}/><p className="mut">Identity clusters and coordinated activity are inferred from behavioral correlation and eligibility context. They do not establish real-world identity.</p></div>
-<div className="card"><h2>RiskEvent evidence</h2><div className="tw"><table><thead><tr><th>campaign</th><th>session</th><th>risk</th><th>anomaly</th><th>coord.</th><th>evidence</th><th>model</th></tr></thead><tbody>{events.filter((e:any)=>e.risk).slice(0,10).map((e:any)=><tr key={e.id}><td className="mono">{e.risk.campaign_id}</td><td className="mono">{e.risk.session_id}</td><td>{e.risk.risk_score}</td><td>{e.risk.anomaly_score}</td><td>{e.risk.coordination_score}</td><td>{e.risk.evidence.join(', ')}</td><td className="mono">{e.risk.model_version}</td></tr>)}</tbody></table></div></div></div>}
