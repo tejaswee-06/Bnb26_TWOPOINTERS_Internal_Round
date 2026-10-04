@@ -1,0 +1,18 @@
+Executed 2026-10-04 via scripts/run_all_tests.sh:
+PASS  backend pytest
+PASS  backend redis failover
+PASS  backend postgres multi-worker concurrency
+PASS  frontend typecheck
+PASS  frontend build (simulation)
+PASS  e2e simulation: customer
+PASS  e2e simulation: admin
+PASS  e2e simulation: ml
+PASS  e2e LIVE (frontend -> proxy -> backend -> policy -> allocation, outages)
+
+-- backend_pytest: 65 passed, 1 warning in 85.94s (0:01:25)
+-- backend_redis_failover: 13/13 checks passed
+-- backend_postgres_multi-worker_concurrency: 24/24 checks passed
+-- e2e_simulation:_customer: 30/30 passed
+-- e2e_simulation:_admin: 50/50 checks passed
+-- e2e_simulation:_ml: 15/15
+-- e2e LIVE: 70/70 passed (docs/evidence/live_e2e_results.log)
