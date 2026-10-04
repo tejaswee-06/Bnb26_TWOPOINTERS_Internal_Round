@@ -1,175 +1,190 @@
-# 🛡️ FAIR DROP
+# 🎟️ FAIR DROP
 
 ## Selling 500 Seats to 50,000 People Without Letting Bots Win
 
-> **Detect abuse. Protect legitimate users. Randomize admission. Preserve inventory. Prove fairness.**
-
 <p align="center">
-  🎟️ <b>FAIR DROP — High-Demand Ticketing & Fair Allocation Platform</b>
+  <b>BIT N BUILD — MAHARASHTRA ROUND</b>
+  <br/>
+  <b>Fr. Conceicao Rodrigues College of Engineering (CRCE)</b>
   <br/><br/>
-  <sub>A real ticketing experience backed by behavioural intelligence, adversarial defense, randomized admission, transactional allocation and measurable fairness.</sub>
+  <sub>Problem Statement 3 • High-Demand Fair Allocation & Anti-Bot Infrastructure</sub>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Next.js-React-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js"/>
-  <img src="https://img.shields.io/badge/TypeScript-Frontend-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/>
-  <img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/>
-  <img src="https://img.shields.io/badge/Python-ML-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
-  <img src="https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL"/>
-  <img src="https://img.shields.io/badge/Redis-Queue-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis"/>
-  <img src="https://img.shields.io/badge/ML-XGBoost%20%7C%20Isolation%20Forest-orange?style=for-the-badge" alt="Machine Learning"/>
+  <img src="https://img.shields.io/badge/Next.js-15-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js"/>
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/>
+  <img src="https://img.shields.io/badge/FastAPI-Python-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/>
+  <img src="https://img.shields.io/badge/PostgreSQL-18-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL"/>
+  <img src="https://img.shields.io/badge/Redis-Queue%20%26%20State-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis"/>
+  <img src="https://img.shields.io/badge/ML-XGBoost%20%7C%20Anomaly%20Detection-F7931E?style=for-the-badge" alt="ML"/>
+  <img src="https://img.shields.io/badge/WebSockets%20%2F%20SSE-Realtime-111111?style=for-the-badge" alt="Realtime"/>
 </p>
 
 ---
 
-# 🏆 BIT N BUILD — MAHARASHTRA ROUND
+# 🏆 Competition
 
-## Google Developer Groups On Campus — Fr. Conceicao Rodrigues College of Engineering
+## BIT N BUILD — MAHARASHTRA ROUND
 
-**Competition:** BIT N BUILD — Maharashtra Round  
-**Track:** Web / App Development  
-**Problem Statement:** PS3 — Fair Drop  
+**Host:** Fr. Conceicao Rodrigues College of Engineering (CRCE)
+
+**Track:** Web / App Development
+
+**Problem Statement:** PS3 — Fair Drop
+
 **Team:** TWOPOINTERS
+
+### Team Members
+
+- **Tejaswee Rajput** — Team Lead
+- **Rahul Sharma** — Team Member
+- **Sohana Pilli** — Team Member
 
 ---
 
 # 🚨 The Problem
 
-High-demand ticket drops are often won by whoever can connect fastest, refresh hardest, or automate the most aggressively.
+High-demand ticket drops create a race that rewards speed, automation and request volume instead of fair participation.
 
-When a limited inventory drop has thousands of legitimate users and automated clients competing simultaneously:
+When thousands of users compete for a small number of seats:
 
-- Bots can generate thousands of requests.
-- Repeated refreshes can overload the system.
+- Automated clients can generate thousands of requests.
+- Aggressive refreshing can overload infrastructure.
 - Multiple sessions can be coordinated.
-- Legitimate users can face timeouts and inconsistent queues.
-- Inventory can become vulnerable to duplicate or conflicting allocations.
-- A system based purely on arrival speed can turn a ticket drop into a race between machines.
+- Legitimate users can face timeouts and inconsistent state.
+- First-come-first-served systems can turn allocation into a race between machines.
+- Duplicate requests can create allocation inconsistencies.
+- A system may detect attacks without proving whether those attacks actually changed allocation outcomes.
 
-The real problem is therefore not simply:
+The fundamental question is:
 
-> **"Can we detect bots?"**
-
-It is:
-
-> **"Can we keep a high-demand drop reliable and fair even when attackers actively try to manipulate it?"**
-
-Fair Drop is built around this principle.
+> **How do we sell scarce inventory at extreme demand without allowing automation to gain a significant allocation advantage?**
 
 ---
 
 # 💡 Our Solution
 
-**Fair Drop** is a high-demand ticketing and allocation platform designed to prevent automated clients from gaining significant advantage through:
+**Fair Drop** is a high-demand ticketing and allocation platform designed around one principle:
 
-- Request speed
-- Request volume
-- Repeated attempts
-- Parallel sessions
-- Coordinated behaviour
-- Queue manipulation
+> **Speed should not determine who gets scarce inventory.**
 
-Instead of making ML responsible for ticket allocation, Fair Drop separates **intelligence** from **authority**.
+Fair Drop combines:
 
-The system follows:
+- 🎟️ Real ticketing marketplace
+- 🛡️ Controlled pre-queue
+- 🧠 Behavioural ML intelligence
+- 🔍 Anomaly detection
+- 🕸️ Coordinated campaign detection
+- ⚖️ Deterministic policy enforcement
+- 🎲 Verifiable randomized admission
+- 🚦 Controlled admission
+- 🔐 Identity/session correlation
+- 💺 Atomic inventory allocation
+- 🧪 Adversarial attack simulation
+- 📊 Counterfactual fairness experiments
+- 🔎 Allocation verification
+- 📋 Incident reporting
+- ⚡ Flash-crowd resilience
 
-    TRAFFIC
-       ↓
-    BEHAVIOUR
-       ↓
-    ML INTELLIGENCE
-       ↓
-    RISK / COORDINATION
-       ↓
-    DETERMINISTIC POLICY
-       ↓
-    CONTROLLED ADMISSION
-       ↓
-    RANDOMIZED ALLOCATION
-       ↓
-    ATOMIC INVENTORY
-       ↓
-    VERIFICATION
-       ↓
-    FAIRNESS MEASUREMENT
+The platform is deliberately divided into two experiences:
 
-This makes the system not only defensive, but measurable and auditable.
+```text
+                    FAIR DROP
+                       │
+          ┌────────────┴────────────┐
+          │                         │
+          ▼                         ▼
+     CUSTOMER SIDE             ADMIN CONTROL
+    Ticket Marketplace       Security & Operations
+```
 
 ---
 
 # 🎯 Core Principle
 
-> **Speed should not be the allocation mechanism.**
+Fair Drop does not treat bot detection as the final solution.
 
-Fair Drop intentionally separates the user journey into two concepts:
+Instead:
 
-**Entry**
+```text
+DETECT
+   ↓
+UNDERSTAND
+   ↓
+CORRELATE
+   ↓
+ENFORCE
+   ↓
+ADMIT FAIRLY
+   ↓
+ALLOCATE SAFELY
+   ↓
+VERIFY
+   ↓
+MEASURE
+```
 
-Users safely enter the pre-queue without receiving a speed-based allocation advantage.
+The intelligence layer provides evidence.
 
-**Admission**
+The deterministic policy layer decides enforcement.
 
-After the eligible pool closes, the system determines admission order through a controlled randomized process.
-
-Therefore:
-
-    Fastest Request
-          ✕
-    Most Refreshes
-          ✕
-    Most Parallel Sessions
-          ✕
-
-             ↓
-
-    Eligible Participant Pool
-             ↓
-       Randomized Order
-             ↓
-      Controlled Admission
-             ↓
-       Ticket Allocation
+The allocation layer remains authoritative.
 
 ---
 
-# 👤 Customer Experience
+# 🛒 Customer Experience
 
-Fair Drop is not just an admin dashboard.
+Fair Drop behaves like a real event-ticketing platform rather than exposing internal security infrastructure to customers.
 
-The customer side behaves like a real ticketing marketplace.
+## Customer Journey
 
-    DISCOVER EVENTS
-          ↓
-    SELECT EVENT
-          ↓
-    EVENT DETAILS
-          ↓
-    JOIN FAIR DROP
-          ↓
-    VERIFY
-          ↓
-    PRE-QUEUE
-          ↓
-    RANDOMIZED ADMISSION
-          ↓
-    ADMITTED
-          ↓
-    SELECT TICKET
-          ↓
-    RESERVE / HOLD
-          ↓
-    PAYMENT
-          ↓
-    CONFIRMATION
-          ↓
-    VERIFY ALLOCATION
+```text
+DISCOVER EVENTS
+      ↓
+SELECT EVENT
+      ↓
+EVENT DETAILS
+      ↓
+JOIN FAIR DROP
+      ↓
+VERIFY
+      ↓
+PRE-QUEUE
+      ↓
+PRE-QUEUE CLOSES
+      ↓
+RANDOMIZED ADMISSION
+      ↓
+WAITING / ADMISSION
+      ↓
+ADMITTED
+      ↓
+SELECT TICKET
+      ↓
+RESERVE / HOLD
+      ↓
+PAYMENT
+      ↓
+CONFIRMATION
+      ↓
+VERIFY ALLOCATION
+```
 
-### Customer Features
+### Customer Marketplace
 
 - Event discovery
 - Search
 - City selection
-- Category navigation
+- Category filtering
+- Event details
+- Ticket types
+- Pricing
+- My Tickets
+- Offers
+- Secure Fair Drop entry
+
+Supported catalogue categories include:
+
 - Movies
 - Concerts
 - Sports
@@ -177,243 +192,285 @@ The customer side behaves like a real ticketing marketplace.
 - Theatre
 - Seminars
 - Workshops
-- Offers
-- My Tickets
-- Event details
-- Fair Drop entry
-- Verification
-- Pre-queue
-- Randomized admission
-- Ticket selection
-- Reservation / hold
-- Confirmation
-- Allocation verification
+- Activities
 
 ---
 
-# 🧠 Behavioural Intelligence
+# 🔎 Smart Event Discovery
 
-Fair Drop does not rely on a single rule such as:
+The customer search system can filter the event catalogue using:
 
-> "High request rate = Bot."
+- Event name
+- Category
+- Venue
+- City
+- Artist
+- Speaker
+- Tags
 
-Instead, the intelligence layer evaluates behavioural signals and coordinated activity.
-
-Person 2's ML layer provides intelligence including:
-
-- Bot probability
-- Anomaly score
-- Risk score
-- Coordination score
-- Attack type
-- Campaign ID
-- Session information
-- Evidence
-- Model version
-
-The intelligence pipeline is:
-
-    Session Behaviour
-          ↓
-    Feature Extraction
-          ↓
-    Behavioural Classification
-          ↓
-    Anomaly Detection
-          ↓
-    Coordination Analysis
-          ↓
-    Risk Event
-          ↓
-    Deterministic Policy
+City selection dynamically filters the local event catalogue.
 
 ---
 
-# 🕸️ Coordinated Attack Detection
+# 🚦 Fair Pre-Queue
 
-A sophisticated attacker may not use one obvious bot.
+The pre-queue deliberately separates **arrival time** from **allocation priority**.
 
-They may distribute activity across:
+Users first enter an eligible pool rather than competing for a ticket purely through request speed.
 
-- Multiple sessions
-- Multiple accounts
-- Multiple tokens
-- Different request patterns
-- Synchronized behaviour
+```text
+USER ARRIVES
+     ↓
+VERIFY
+     ↓
+PRE-QUEUE
+     ↓
+ELIGIBILITY
+     ↓
+POOL CLOSES
+     ↓
+RANDOMIZATION
+```
 
-Fair Drop therefore looks beyond individual requests.
-
-The system can correlate suspicious sessions into behavioural campaigns.
-
-    SESSION A ─┐
-    SESSION B ─┼──→ BEHAVIOURAL CORRELATION
-    SESSION C ─┤
-    SESSION D ─┘
-                    ↓
-              CAMPAIGN DETECTED
-                    ↓
-              RISK EVALUATION
-
-This allows the platform to reason about **coordinated abuse**, not just isolated suspicious requests.
-
----
-
-# ⚙️ ML → Policy Separation
-
-One of Fair Drop's most important architectural decisions is:
-
-> **ML does not control inventory.**
-
-The ML layer provides evidence.
-
-The deterministic policy layer decides what action should happen.
-
-Possible policy outcomes include:
-
-    NORMAL
-       ↓
-    CHALLENGE
-       ↓
-    THROTTLE
-       ↓
-    QUARANTINE
-       ↓
-    REJECT
-
-This separation prevents a probabilistic model from directly deciding who receives a scarce ticket.
-
-The authoritative allocation system remains deterministic.
-
----
-
-# 🎟️ Fair Pre-Queue
-
-The pre-queue creates a controlled entry phase before admission.
-
-Users can join safely without competing through request speed.
-
-The system tracks:
-
-- Eligible participants
-- Buffered joins
-- Policy-blocked sessions
-- Duplicate attempts
-- Suspicious participants
-- Legitimate participant population
-
-The key UX principle is:
-
-> **Your arrival time does not directly determine your ticket allocation.**
-
-Only after the pre-queue closes is the eligible pool finalized.
+The customer does not receive a speed-based allocation advantage simply because their browser sent requests faster.
 
 ---
 
 # 🎲 Verifiable Randomized Admission
 
-After the eligible pool closes, Fair Drop creates a controlled randomized ordering.
+After the eligible pool closes:
 
-    ELIGIBLE POOL
-          ↓
-    COMMITMENT
-          ↓
-    SEED
-          ↓
-    DETERMINISTIC SHUFFLE
-          ↓
-    ADMISSION ORDER
-          ↓
-    CONTROLLED ADMISSION
+```text
+ELIGIBLE USER POOL
+        ↓
+COMMITMENT
+        ↓
+SERVER-CONTROLLED SEED
+        ↓
+DETERMINISTIC SHUFFLE
+        ↓
+RANDOMIZED ORDER
+        ↓
+CONTROLLED ADMISSION
+```
 
-The resulting order can be independently checked against the published commitment and draw information.
-
-This changes the fundamental allocation mechanism from:
-
-> **"Who was fastest?"**
-
-to:
-
-> **"Who was eligible, and what did the verifiable allocation process produce?"**
+This creates an admission order that can be independently reconstructed and verified.
 
 ---
 
-# 🔐 Atomic Ticket Allocation
+# 🧠 Intelligence Layer
 
-Once a user is admitted, ticket allocation is handled through transactional inventory states.
+Fair Drop integrates a dedicated ML intelligence layer that analyses behavioural evidence.
 
-    AVAILABLE
-        ↓
-       HOLD
-        ↓
-    CONFIRMED
+The ML layer can produce:
 
-The system protects against:
+- Bot probability
+- Anomaly score
+- Behavioural classification
+- Coordination score
+- Campaign ID
+- Attack type
+- Session intelligence
+- Evidence
+- Model version
 
-- Duplicate allocations
-- Overselling
-- Conflicting requests
-- Reservation races
-- Expired holds
-- Repeated requests
-- Inconsistent inventory state
+The intelligence layer is **advisory**.
 
-Idempotency is used so repeated requests do not create duplicate successful allocations.
+It does not directly control inventory.
+
+```text
+USER / SESSION
+      ↓
+BEHAVIOURAL FEATURES
+      ↓
+BOT CLASSIFICATION
+      ↓
+ANOMALY DETECTION
+      ↓
+COORDINATION ANALYSIS
+      ↓
+RISK / EVIDENCE
+      ↓
+DETERMINISTIC POLICY
+```
 
 ---
 
-# 🧪 Attack Lab
+# 🛡️ Deterministic Policy Enforcement
 
-Fair Drop does not only demonstrate the system under normal traffic.
+ML should not directly decide who receives a seat.
 
-We actively attack it.
+Fair Drop separates intelligence from enforcement:
 
-The Attack Lab can demonstrate scenarios involving:
+```text
+                    ML INTELLIGENCE
+                          │
+             ┌────────────┴────────────┐
+             │                         │
+        Risk Evidence            Behaviour Evidence
+             │                         │
+             └────────────┬────────────┘
+                          ↓
+                 POLICY ENGINE
+                          │
+        ┌─────────────────┼─────────────────┐
+        ↓                 ↓                 ↓
+     NORMAL           CHALLENGE          HIGH RISK
+        │                 │                 │
+        │              PASS/FAIL       THROTTLE
+        │                                 ↓
+        │                            QUARANTINE
+        │                                 ↓
+        └────────────────────────────── REJECT
+```
+
+This prevents an ML prediction from directly mutating inventory state.
+
+---
+
+# 🕸️ Coordinated Bot Intelligence
+
+Fair Drop does not only look for isolated suspicious users.
+
+It can correlate:
+
+- Sessions
+- Accounts
+- Tokens
+- Behaviour patterns
+- Request timing
+- Synchronization
+- Campaign relationships
+
+The objective is to identify coordinated behaviour rather than treating every suspicious request independently.
+
+---
+
+# ⚔️ Adversarial Attack Lab
+
+Fair Drop can demonstrate its defence pipeline against configurable attack behaviour.
+
+Attack scenarios can include:
 
 - Request flooding
-- High-frequency automation
-- Repeated attempts
+- Aggressive refreshing
+- Parallel requests
 - Multi-session behaviour
-- Coordinated activity
-- Distributed attack patterns
+- Distributed automated traffic
 - Low-and-slow behaviour
+- Coordinated campaigns
 
-The important part is not simply generating traffic.
+The attack is injected into the simulated environment and its impact is measured.
 
-The important part is observing:
-
-    ATTACK
-       ↓
-    DETECTION
-       ↓
-    CORRELATION
-       ↓
-    POLICY
-       ↓
-    MITIGATION
-       ↓
-    ADMISSION IMPACT
-       ↓
-    ALLOCATION IMPACT
+```text
+ATTACK
+  ↓
+TRAFFIC SURGE
+  ↓
+BEHAVIOURAL SIGNALS
+  ↓
+ML DETECTION
+  ↓
+CAMPAIGN CORRELATION
+  ↓
+POLICY ACTION
+  ↓
+MITIGATION
+  ↓
+FAIRNESS MEASUREMENT
+```
 
 ---
 
-# 📊 Fairness Lab
+# 💺 Atomic Ticket Allocation
 
-Fair Drop measures whether adversarial traffic actually changed the outcome for legitimate users.
+Inventory follows explicit transactional states:
 
-The same legitimate population can be evaluated under two experimental worlds:
+```text
+AVAILABLE
+    │
+    ▼
+  HELD
+    │
+    ▼
+CONFIRMED
+```
 
-### WORLD A
+Alternative expiry path:
 
-    Legitimate Traffic Only
+```text
+HELD
+  │
+  └── TIMEOUT / RELEASE
+          ↓
+      AVAILABLE
+```
 
-### WORLD B
+The allocation layer protects against:
 
-    Same Legitimate Traffic
-            +
-    Adversarial Traffic
+- Duplicate allocation
+- Overselling
+- Race conditions
+- Repeated requests
+- Expired reservations
+- Idempotency conflicts
+- Inconsistent inventory state
 
-The system compares:
+---
+
+# 🔐 Idempotent Allocation
+
+Repeated requests must not create repeated allocations.
+
+The allocation layer uses idempotency protection so that retrying a request does not accidentally create additional inventory claims.
+
+```text
+REQUEST
+   ↓
+IDEMPOTENCY CHECK
+   ↓
+VALID REQUEST?
+   ├── NO → REJECT / CONFLICT
+   │
+   └── YES
+         ↓
+     ATOMIC CLAIM
+         ↓
+       HOLD
+         ↓
+     CONFIRM / RELEASE
+```
+
+---
+
+# ⚖️ Fairness Lab
+
+Fair Drop does not stop at saying:
+
+> "The bot was detected."
+
+It measures whether the attack actually changed outcomes.
+
+Two controlled worlds are compared:
+
+```text
+WORLD A
+Legitimate Traffic
+      │
+      ▼
+Allocation Outcome
+
+
+WORLD B
+Same Legitimate Traffic
+        +
+Adversarial Traffic
+        │
+        ▼
+Allocation Outcome
+```
+
+The comparison measures:
 
 - Legitimate allocation
 - Automated allocation
@@ -424,154 +481,535 @@ The system compares:
 - Overselling
 - System performance
 
-This transforms the claim of fairness into a measurable experiment.
-
 ---
 
-# ⚖️ Attack Allocation Advantage
+# 📈 Attack Allocation Advantage
 
-Fair Drop introduces a direct way to quantify whether attackers gained disproportionate access to scarce inventory.
+The system quantifies whether adversarial traffic gained disproportionate access to scarce inventory.
 
-Instead of saying:
+```text
+ATTACKER SHARE OF USERS
+          │
+          ▼
+ATTACKER SHARE OF SEATS
+          │
+          ▼
+ALLOCATION GAP
+          │
+          ▼
+ATTACK ALLOCATION ADVANTAGE
+```
 
-> "Our bot detector works."
-
-we ask:
-
-> **"Did attackers actually gain an allocation advantage?"**
-
-The system can compare:
-
-    BOT / ATTACKER SHARE
-             vs
-    SEAT ALLOCATION SHARE
-
-and measure the resulting allocation gap.
-
-This makes the effectiveness of the defense measurable at the outcome level.
+This transforms fairness from a claim into a measurable outcome.
 
 ---
 
 # 🔎 Allocation Verification
 
-Fair Drop does not stop after allocation.
+Fair Drop provides a verification layer around the randomized allocation process.
 
-The result can be independently verified through the allocation proof mechanism.
+```text
+COMMITMENT
+    ↓
+REVEALED SEED
+    ↓
+RECONSTRUCT ORDER
+    ↓
+RECOMPUTE ALLOCATION
+    ↓
+COMPARE RESULT
+    ↓
+VERIFIED / INVALID
+```
 
-The verification flow is:
-
-    COMMITMENT
-        ↓
-    SEED / DRAW
-        ↓
-    ALLOCATION
-        ↓
-    RECOMPUTATION
-        ↓
-    VERIFICATION
-        ↓
-    ✓ VERIFIED
-
-This provides an auditable explanation of how the allocation result was produced.
+The current verification mechanism provides an auditable commitment/hash-based proof and does not claim to be an external randomness beacon.
 
 ---
 
-# 🖥️ Admin Command Center
+# 🖥️ Admin Control Center
 
-The customer experience and operational intelligence are intentionally separated.
+The customer marketplace and security infrastructure are deliberately separated.
 
-The customer sees a ticketing platform.
+The Admin portal provides the operational view of the complete drop.
 
-The operator sees a control center.
+## Admin Navigation
 
-### Admin Sections
+```text
+OVERVIEW
+   │
+TRAFFIC
+   ├── Live Traffic
+   ├── Queue
+   └── Load Lab
+   │
+INTELLIGENCE
+   ├── Detection
+   ├── Campaigns
+   ├── Attack Lab
+   └── Risk Signals
+   │
+ADMISSION
+   ├── Pre-Queue
+   ├── Randomization
+   ├── Admission
+   └── Allocations
+   │
+FAIRNESS
+   ├── Fairness Lab
+   ├── Allocation Advantage
+   └── Verification
+   │
+OPERATIONS
+   ├── Incidents
+   ├── System Health
+   └── Reports
+```
 
-**Overview**
+---
 
-- Live drop state
+# 📊 Admin Overview
+
+The overview provides the operational state of the active drop:
+
 - Participants
-- Traffic
-- Queue
-- Inventory
-- Admission
-- System metrics
+- Requests/sec
+- Queue depth
+- Active sessions
+- Human traffic
+- Suspicious traffic
+- Bot traffic
+- Seats remaining
+- Admitted users
+- Holds
+- Confirmations
+- Latency
+- System health
+- Inventory integrity
+- Recent incidents
 
-**Traffic**
+---
 
-- Live Traffic
-- Queue
-- Load Lab
+# 🌐 Live Traffic
 
-**Intelligence**
+The traffic console exposes:
 
-- Detection
+- Requests/sec
+- Active sessions
+- Queue depth
+- p50/p95/p99 latency
+- Traffic composition
+- Load
+- Shed traffic
+- Admission rate
+- Queue bypass attempts
+- Mitigation events
+
+---
+
+# 🧠 Intelligence Console
+
+The Intelligence console surfaces:
+
+- ML service status
+- Model version
+- Risk scores
+- Anomaly scores
+- Coordination scores
 - Campaigns
-- Attack Lab
-- Risk Signals
+- Suspicious sessions
+- Evidence
+- Policy decisions
+- Detection metrics
+- False positives
+- Recent RiskEvents
 
-**Admission**
+---
 
-- Pre-Queue
-- Randomization
-- Admission
-- Allocations
+# 🕸️ Campaign Intelligence
 
-**Fairness**
+Campaign views expose relationships between suspicious sessions and coordinated behaviour.
 
-- Fairness Lab
-- Allocation Advantage
+```text
+SESSION A ─────┐
+               │
+SESSION B ─────┼──→ CAMPAIGN
+               │
+SESSION C ─────┤
+               │
+SESSION D ─────┘
+```
+
+Each campaign can be inspected through:
+
+- Campaign ID
+- Sessions
+- Attack type
+- Coordination score
+- Evidence
+- Timeline
+
+---
+
+# 🚨 Incident Management
+
+Incidents connect the complete operational lifecycle:
+
+```text
+ATTACK
+  ↓
+DETECTION
+  ↓
+CORRELATION
+  ↓
+POLICY
+  ↓
+MITIGATION
+  ↓
+ALLOCATION IMPACT
+  ↓
+RECOVERY
+  ↓
+REPORT
+```
+
+---
+
+# 📋 Deterministic Reporting
+
+Reports are generated from structured telemetry and recorded system state.
+
+They summarize:
+
+- Drop configuration
+- Traffic
+- Attacks
+- Detection
+- Mitigation
+- Allocation
+- Inventory integrity
+- Fairness
 - Verification
+- Incident outcome
 
-**Operations**
-
-- Incidents
-- System Health
-- Reports
+The reporting layer does not fabricate operational truth using an LLM.
 
 ---
 
-# 🧩 End-to-End Architecture
+# 🧪 Simulation Architecture
 
-    ┌───────────────────────────────────────┐
-    │           CUSTOMER PLATFORM           │
-    │                                       │
-    │ Events → Join → Verify → Pre-Queue    │
-    │ → Admission → Purchase → Confirmation │
-    └───────────────────┬───────────────────┘
-                        │
-                        ▼
-    ┌───────────────────────────────────────┐
-    │          FAIR DROP CONTROL            │
-    │                                       │
-    │ Admission + Policy + Allocation       │
-    └───────────────┬───────────┬───────────┘
-                    │           │
-                    ▼           ▼
-          ┌──────────────┐  ┌──────────────┐
-          │ ML INTELLI-  │  │ INVENTORY /  │
-          │ GENCE        │  │ ALLOCATION   │
-          │              │  │              │
-          │ Risk         │  │ Atomic State │
-          │ Anomaly      │  │ Idempotency  │
-          │ Coordination │  │ Holds        │
-          │ Campaigns    │  │ Confirmation │
-          └──────┬───────┘  └──────┬───────┘
-                 │                  │
-                 └────────┬─────────┘
-                          ▼
-                ┌───────────────────┐
-                │ ADMIN CONTROL     │
-                │ CENTER            │
-                │                   │
-                │ Intelligence      │
-                │ Admission         │
-                │ Fairness          │
-                │ Operations        │
-                └───────────────────┘
+The project provides a dedicated integration boundary for teammate simulation and ML services.
+
+```mermaid
+flowchart TB
+    A["Customer Marketplace"] --> B["Fair Drop Application"]
+    C["Admin Control Center"] --> B
+
+    B --> D["Traffic & Queue Layer"]
+    B --> E["Intelligence Integration Layer"]
+    B --> F["Admission & Allocation Layer"]
+    B --> G["Fairness & Verification Layer"]
+
+    E --> H["Person 2 ML Service"]
+    H --> H1["Bot Classification"]
+    H --> H2["Anomaly Detection"]
+    H --> H3["Coordination Intelligence"]
+    H --> H4["RiskEvents"]
+
+    E --> I["Deterministic Policy Engine"]
+
+    I --> F
+
+    F --> J["Authoritative Inventory"]
+    J --> J1["AVAILABLE"]
+    J --> J2["HELD"]
+    J --> J3["CONFIRMED"]
+
+    G --> K["World A vs World B"]
+    G --> L["Allocation Advantage"]
+    G --> M["Verification"]
+```
 
 ---
 
-# 🏗️ Technology Stack
+# 🏗️ Overall System Architecture
+
+```mermaid
+flowchart TB
+
+    U["👤 Customer"] --> FE["🎟️ Fair Drop Customer Platform"]
+    A["🛡️ Admin"] --> AC["🖥️ Admin Control Center"]
+
+    FE --> EDGE["⚡ Application / API Layer"]
+    AC --> EDGE
+
+    EDGE --> AUTH["🔐 Verification & Session Layer"]
+    EDGE --> QUEUE["🚦 Pre-Queue / Admission Layer"]
+    EDGE --> POLICY["🧠 Deterministic Policy Engine"]
+    EDGE --> ALLOC["💺 Allocation Engine"]
+
+    QUEUE --> RANDOM["🎲 Randomization Engine"]
+    RANDOM --> ADMIT["🚪 Controlled Admission"]
+    ADMIT --> ALLOC
+
+    ALLOC --> INV["🗄️ Authoritative Inventory"]
+    INV --> AVAILABLE["AVAILABLE"]
+    INV --> HELD["HELD"]
+    INV --> CONFIRMED["CONFIRMED"]
+
+    EDGE --> REDIS["⚡ Redis / Hot State"]
+    EDGE --> DB["🐘 PostgreSQL / Durable State"]
+
+    TELEMETRY["📡 Behavioural Telemetry"] --> ML["🤖 Person 2 ML Service"]
+
+    ML --> BOT["Bot Classification"]
+    ML --> ANOM["Anomaly Detection"]
+    ML --> CAMP["Campaign / Coordination"]
+    ML --> RISK["RiskEvents"]
+
+    BOT --> POLICY
+    ANOM --> POLICY
+    CAMP --> POLICY
+    RISK --> POLICY
+
+    EDGE --> RES["🛡️ Resilience / Backpressure"]
+    RES --> EDGE
+
+    ALLOC --> FAIR["⚖️ Fairness Lab"]
+    FAIR --> WORLD_A["World A"]
+    FAIR --> WORLD_B["World B"]
+    FAIR --> AAA["Attack Allocation Advantage"]
+
+    ALLOC --> VERIFY["🔎 Verification"]
+    VERIFY --> PROOF["Commitment + Seed + Re-computation"]
+
+    AC --> INTEL["📊 Intelligence"]
+    AC --> OPS["🚨 Operations"]
+    AC --> REPORT["📋 Reports"]
+```
+
+---
+
+# 🔄 End-to-End Fair Drop Flow
+
+```mermaid
+sequenceDiagram
+
+    participant U as Customer
+    participant FE as Customer Platform
+    participant V as Verification
+    participant Q as Pre-Queue
+    participant ML as ML Intelligence
+    participant P as Policy Engine
+    participant R as Randomization
+    participant A as Admission
+    participant I as Inventory
+    participant F as Fairness Lab
+
+    U->>FE: Discover Event
+    U->>FE: Join Fair Drop
+    FE->>V: Verify Session
+    V-->>FE: Verified
+
+    FE->>Q: Enter Pre-Queue
+    Q-->>FE: Eligible / Pending
+
+    ML->>P: Behavioural Risk Evidence
+    P-->>Q: Challenge / Throttle / Quarantine / Reject
+
+    Q->>R: Close Eligible Pool
+    R->>R: Commit Seed
+    R->>R: Deterministic Shuffle
+    R-->>A: Admission Order
+
+    A-->>U: Purchase Window Open
+    U->>I: Hold Ticket
+    I-->>U: Hold Created
+
+    U->>I: Confirm Ticket
+    I-->>U: Confirmation
+
+    F->>F: Run World A
+    F->>F: Run World B
+    F-->>FE: Allocation Difference
+```
+
+---
+
+# 🧪 Adversarial Evaluation Flow
+
+```mermaid
+flowchart LR
+
+    A["Normal Traffic"] --> B["Baseline Allocation"]
+
+    X["Automated Attack"] --> Y["Flash Crowd / Bot Traffic"]
+
+    Y --> Z["Behavioural Telemetry"]
+    Z --> D["ML Detection"]
+    D --> C["Campaign Correlation"]
+    C --> P["Policy Enforcement"]
+
+    P --> Q["Controlled Admission"]
+    Q --> R["Atomic Allocation"]
+
+    B --> F["Fairness Comparison"]
+    R --> F
+
+    F --> G["Allocation Advantage"]
+    F --> H["Legitimate User Impact"]
+    F --> I["Inventory Integrity"]
+    F --> J["System Performance"]
+```
+
+---
+
+# 🔐 Security & Secrets
+
+For local/demo deployment, the following shared secrets are used:
+
+```env
+# ---- shared secrets ----
+POSTGRES_PASSWORD=fairdrop123
+HMAC_SECRET=fairdrop-hmac-secret-2026-fairdrop
+ADMIN_API_KEY=admin-demo-key-2026
+INTEGRATION_API_KEY=integration-demo-key-2026
+FAIRDROP_COOKIE_SECRET=fairdrop-cookie-secret-2026
+FAIRDROP_ADMIN_PASSWORD=FairDrop@2026
+
+ML_SYNC_INTERVAL_SECONDS=0
+```
+
+> **Important:** These values are demo/development credentials. Production deployments must replace them with securely generated secrets and environment-specific configuration.
+
+---
+
+# 👨‍💼 Admin Login
+
+The Admin portal is protected separately from the customer marketplace.
+
+### Demo Credentials
+
+```text
+Email:
+admin@fairdrop.demo
+
+Password:
+FairDrop@2026
+```
+
+Access through:
+
+```text
+Customer Navbar
+      ↓
+☰ Menu
+      ↓
+ADMIN ACCESS
+      ↓
+/admin/login
+      ↓
+Admin Control Center
+```
+
+---
+
+# 🧩 Person 2 ML Integration
+
+Person 2's ML system is exposed as an independent intelligence service.
+
+```text
+Fair Drop Admin
+      ↓
+ML Integration Layer
+      ↓
+Person 2 ML API
+      ↓
+┌─────────────────────────┐
+│ Bot Classification      │
+│ Anomaly Detection       │
+│ Coordination Analysis   │
+│ Risk Events             │
+└─────────────────────────┘
+```
+
+Typical ML service endpoints:
+
+```text
+GET  /
+GET  /ml/summary
+GET  /ml/simulation
+GET  /ml/risk-events
+GET  /ml/session/{session_id}
+GET  /ml/risk-event/{event_id}
+GET  /ml/live
+POST /ml/live/reset
+GET  /ml/live-risk-event
+POST /ml/live-risk-event/reset
+GET  /ml/demo
+```
+
+The ML service is intentionally decoupled from authoritative inventory.
+
+---
+
+# 🧱 Project Architecture
+
+```text
+fair-drop/
+│
+├── app/
+│   ├── admin/
+│   │   ├── login/
+│   │   ├── traffic/
+│   │   ├── intelligence/
+│   │   ├── campaigns/
+│   │   ├── attacks/
+│   │   ├── admission/
+│   │   ├── allocations/
+│   │   ├── fairness/
+│   │   ├── verification/
+│   │   ├── incidents/
+│   │   ├── system/
+│   │   ├── reports/
+│   │   ├── settings/
+│   │   └── simulation/
+│   │
+│   └── customer/
+│
+├── components/
+│   ├── customer/
+│   ├── admin/
+│   ├── simulation/
+│   └── ui/
+│
+├── lib/
+│   ├── engine/
+│   ├── ml/
+│   ├── fairness/
+│   ├── genai/
+│   ├── runtime/
+│   └── services/
+│
+├── backend/
+│   ├── API
+│   ├── allocation
+│   ├── inventory
+│   ├── queue
+│   ├── sessions
+│   └── resilience
+│
+├── tests/
+│
+├── public/
+│
+├── middleware.ts
+├── package.json
+└── README.md
+```
+
+---
+
+# 🛠️ Technology Stack
 
 ## Frontend
 
@@ -582,311 +1020,308 @@ The operator sees a control center.
 - shadcn/ui
 - Framer Motion
 - Recharts
+- Lucide React
 
 ## Backend
 
-- FastAPI
 - Python
-- REST APIs
-- WebSockets / SSE architecture
-
-## Data & State
-
+- FastAPI
 - PostgreSQL
 - Redis
-- Transactional inventory
-- Queue/session state
+- WebSockets / Server-Sent Events
 
-## Machine Learning
+## AI / ML
 
 - Python
 - scikit-learn
 - XGBoost
 - Isolation Forest
-- Behavioural classification
+- NetworkX
+- Behavioural feature extraction
+- Risk scoring
 - Anomaly detection
-- Coordination analysis
+- Campaign correlation
 
-## Security & Integrity
+## Security
 
-- HMAC / signed queue tokens
+- HMAC
+- Signed queue tokens
 - Server-side validation
-- Idempotency
-- Commitment-based verification
-- Queue bypass protection
+- Idempotency keys
+- Session validation
+- Protected admin authentication
 
-## Simulation & Testing
+## Testing / Simulation
 
-- Python asyncio
+- Python
+- asyncio
 - Locust
-- Configurable adversarial traffic
-- Flash-crowd simulation
-- Fairness experiments
-- Counterfactual evaluation
+- Configurable adversarial clients
+- Counterfactual experiments
+- Fairness metrics
 
 ---
 
-# 🔄 Complete System Flow
+# 🚀 Getting Started
 
-    USER ARRIVES
-         ↓
-    VERIFICATION
-         ↓
-    PRE-QUEUE
-         ↓
-    BEHAVIOURAL INTELLIGENCE
-         ↓
-    RISK / ANOMALY / COORDINATION
-         ↓
-    POLICY DECISION
-         ↓
-    ELIGIBLE POOL
-         ↓
-    COMMITMENT + RANDOMIZATION
-         ↓
-    CONTROLLED ADMISSION
-         ↓
-    TICKET HOLD
-         ↓
-    PAYMENT
-         ↓
-    CONFIRMATION
-         ↓
-    INVENTORY VALIDATION
-         ↓
-    ALLOCATION VERIFICATION
-         ↓
-    FAIRNESS ANALYSIS
-         ↓
-    INCIDENT REPORT
+## Prerequisites
+
+Make sure the following are installed:
+
+- Node.js
+- npm
+- Python 3.11+
+- PostgreSQL
+- Redis
 
 ---
 
-# 🧪 What We Measure
+## 1. Clone the Repository
 
-Fair Drop is designed around measurable outcomes rather than simply displaying detection scores.
-
-### Security / Abuse
-
-- Bot probability
-- Anomaly score
-- Coordination score
-- Campaign detection
-- Attack type
-- Evidence
-
-### System Performance
-
-- Requests/sec
-- Queue depth
-- Active sessions
-- p50 / p95 / p99 latency
-- Load
-- Admission rate
-
-### Allocation Integrity
-
-- Available seats
-- Held seats
-- Confirmed seats
-- Expired holds
-- Duplicate allocation attempts
-- Overselling
-
-### Fairness
-
-- Legitimate allocation share
-- Automated allocation share
-- Allocation gap
-- Attack Allocation Advantage
-- World A vs World B difference
+```bash
+git clone <YOUR_REPOSITORY_URL>
+cd fair-drop
+```
 
 ---
 
-# 🛡️ Why Fair Drop?
+## 2. Install Frontend Dependencies
 
-Traditional anti-bot systems often stop at:
+```bash
+npm install
+```
 
-    REQUEST
-       ↓
-    DETECT BOT
-       ↓
-    BLOCK
+---
+
+## 3. Install Backend Dependencies
+
+```bash
+pip install -r backend/requirements.txt
+```
+
+---
+
+## 4. Configure Environment Variables
+
+Create `.env` / `.env.local` using the required development secrets:
+
+```env
+POSTGRES_PASSWORD=fairdrop123
+HMAC_SECRET=fairdrop-hmac-secret-2026-fairdrop
+ADMIN_API_KEY=admin-demo-key-2026
+INTEGRATION_API_KEY=integration-demo-key-2026
+FAIRDROP_COOKIE_SECRET=fairdrop-cookie-secret-2026
+FAIRDROP_ADMIN_PASSWORD=FairDrop@2026
+
+ML_SYNC_INTERVAL_SECONDS=0
+```
+
+---
+
+## 5. Start PostgreSQL
+
+Ensure PostgreSQL is running on the configured development environment.
+
+---
+
+## 6. Start Redis
+
+Ensure Redis is running and available to the Fair Drop backend.
+
+---
+
+## 7. Start the Backend
+
+```bash
+uvicorn backend.main:app --reload --port 8000
+```
+
+Backend:
+
+```text
+http://localhost:8000
+```
+
+---
+
+## 8. Start the ML Service
+
+From the Person 2 ML integration package:
+
+```bash
+uvicorn ml_api.main:app --reload --port 8001
+```
+
+ML API:
+
+```text
+http://localhost:8001
+```
+
+---
+
+## 9. Start the Frontend
+
+```bash
+npm run dev
+```
+
+Frontend:
+
+```text
+http://localhost:3000
+```
+
+---
+
+# ▶️ Demo Workflow
+
+```text
+1. Open Fair Drop
+        ↓
+2. Browse Events
+        ↓
+3. Select High-Demand Event
+        ↓
+4. Join Fair Drop
+        ↓
+5. Verify
+        ↓
+6. Enter Pre-Queue
+        ↓
+7. Launch Adversarial Attack
+        ↓
+8. Observe ML Detection
+        ↓
+9. Observe Campaign Correlation
+        ↓
+10. Observe Policy Enforcement
+        ↓
+11. Close Pre-Queue
+        ↓
+12. Commit Randomization
+        ↓
+13. Generate Admission Order
+        ↓
+14. Admit Users
+        ↓
+15. Hold Ticket
+        ↓
+16. Confirm Ticket
+        ↓
+17. Verify Allocation
+        ↓
+18. Open Fairness Lab
+        ↓
+19. Compare World A vs World B
+        ↓
+20. Measure Attack Allocation Advantage
+        ↓
+21. Generate Incident / Drop Report
+```
+
+---
+
+# 🏆 What Makes Fair Drop Different?
+
+Most anti-bot systems stop at:
+
+```text
+BOT DETECTED
+```
 
 Fair Drop goes further:
 
-    REQUEST
-       ↓
-    UNDERSTAND BEHAVIOUR
-       ↓
-    CORRELATE ACTIVITY
-       ↓
-    ASSESS RISK
-       ↓
-    APPLY DETERMINISTIC POLICY
-       ↓
-    PROTECT ADMISSION
-       ↓
-    RANDOMIZE ELIGIBLE USERS
-       ↓
-    ALLOCATE TRANSACTIONALLY
-       ↓
-    VERIFY
-       ↓
-    MEASURE FAIRNESS
+```text
+BOT DETECTED
+      ↓
+WHY?
+      ↓
+WHAT SHOULD HAPPEN?
+      ↓
+DID MITIGATION WORK?
+      ↓
+DID LEGITIMATE USERS REMAIN PROTECTED?
+      ↓
+DID THE ATTACK CHANGE ALLOCATION?
+      ↓
+CAN THE RESULT BE VERIFIED?
+```
 
-The system is therefore evaluated on the question that actually matters:
+The core differentiator is not simply detection.
 
-> **Did legitimate users remain protected when the system was attacked?**
+It is **measurable fairness under adversarial demand**.
 
 ---
 
-# 🚀 Key Differentiators
+# 📊 Fair Drop's Core Engineering Loop
 
-| Capability | Fair Drop |
-|---|---|
-| Real ticketing experience | ✅ |
-| Behavioural bot intelligence | ✅ |
-| Anomaly detection | ✅ |
-| Coordinated campaign detection | ✅ |
-| Identity/session correlation | ✅ |
-| Deterministic policy enforcement | ✅ |
-| Speed-independent pre-queue | ✅ |
-| Verifiable randomized admission | ✅ |
-| Controlled admission | ✅ |
-| Atomic inventory allocation | ✅ |
-| Idempotency protection | ✅ |
-| Attack simulation | ✅ |
-| World A vs World B fairness testing | ✅ |
-| Attack Allocation Advantage | ✅ |
-| Allocation verification | ✅ |
-| Incident reporting | ✅ |
-| Admin operations center | ✅ |
+```mermaid
+flowchart TB
 
----
+    A["👥 Massive Demand"] --> B["🚦 Controlled Entry"]
 
-# 🎯 The Core USP
+    B --> C["🧠 Behavioural Intelligence"]
 
-Most systems ask:
+    C --> D["🔍 Detection & Correlation"]
 
-> **"Can we detect the bot?"**
+    D --> E["⚖️ Deterministic Policy"]
 
-Fair Drop asks:
+    E --> F["🎲 Fair Randomized Admission"]
 
-> **"Can the bot actually gain an unfair allocation advantage?"**
+    F --> G["🚪 Controlled Purchase Window"]
 
-And then measures the answer.
+    G --> H["💺 Atomic Inventory"]
 
-Our system combines:
+    H --> I["🔎 Verification"]
 
-**INTELLIGENCE**
+    I --> J["🧪 Counterfactual Fairness"]
 
-→ understand suspicious behaviour
+    J --> K["📈 Attack Allocation Advantage"]
 
-**POLICY**
-
-→ respond deterministically
-
-**ADMISSION**
-
-→ prevent speed from becoming allocation
-
-**ALLOCATION**
-
-→ protect inventory integrity
-
-**VERIFICATION**
-
-→ make the outcome auditable
-
-**FAIRNESS**
-
-→ measure whether attackers actually gained an advantage
+    K --> L["📋 Auditable Report"]
+```
 
 ---
 
-# 🔮 Future Scope
+# 🎯 Final Vision
 
-Fair Drop can evolve toward production-scale high-demand commerce through:
+Fair Drop transforms high-demand ticket drops from a race of:
 
-- Distributed Redis-backed admission
-- PostgreSQL-backed durable state
-- Global load balancing
-- Multi-region deployment
-- Distributed rate limiting
-- Persistent session recovery
-- Real-time event streaming
-- Production-grade challenge systems
-- Larger-scale load testing
-- Advanced coordinated attack detection
-- Continuous adversarial model evaluation
-- External randomness beacon integration
-- Enterprise observability
-- Automated incident response
+> **Who can send requests fastest?**
 
-The architecture targets large-scale flash-crowd environments, while measured capacity claims are reserved for validated benchmark results.
+into a system based on:
 
----
+> **Who is eligible, what evidence exists, how should access be controlled, and can the final allocation be proven fair?**
 
-# 🏁 Demo Flow
+```text
+DETECT
+   ↓
+PROTECT
+   ↓
+ADMIT
+   ↓
+ALLOCATE
+   ↓
+VERIFY
+   ↓
+MEASURE
+```
 
-For the complete demonstration:
+## **FAIR DROP**
 
-    1. Open Fair Drop
-          ↓
-    2. Discover an event
-          ↓
-    3. Join the Fair Drop
-          ↓
-    4. Enter pre-queue
-          ↓
-    5. Open Admin Control Center
-          ↓
-    6. Launch adversarial traffic
-          ↓
-    7. Observe ML detection
-          ↓
-    8. Inspect campaign / risk evidence
-          ↓
-    9. Observe deterministic policy
-          ↓
-    10. Close pre-queue
-          ↓
-    11. Randomize eligible users
-          ↓
-    12. Admit controlled cohorts
-          ↓
-    13. Hold and confirm tickets
-          ↓
-    14. Verify allocation
-          ↓
-    15. Run World A vs World B
-          ↓
-    16. Measure Attack Allocation Advantage
-          ↓
-    17. Generate incident / fairness report
-
----
-
-# 👥 Team TWOPOINTERS
-
-### Tejaswee Rajput
-**Team Lead**
-
-### Rahul Sharma
-**Team Member**
-
-### Sohana Pilli
-**Team Member**
+### **Don't just detect the bots.**
+### **Make speed irrelevant.**
+### **Prove the drop was fair.**
 
 ---
 
 <p align="center">
-  <b>Built for BIT N BUILD — Maharashtra Round</b>
+  <b>Built by Team TWOPOINTERS</b>
   <br/>
-  <sub>Google Developer Groups On Campus — Fr. Conceicao Rodrigues College of Engineering</sub>
+  Tejaswee Rajput • Rahul Sharma • Sohana Pilli
   <br/><br/>
-  <b>FAIR DROP</b>
+  <b>BIT N BUILD — MAHARASHTRA ROUND</b>
   <br/>
-  <i>Don't just detect unfairness. Make fairness measurable.</i>
+  Fr. Conceicao Rodrigues College of Engineering (CRCE)
 </p>
