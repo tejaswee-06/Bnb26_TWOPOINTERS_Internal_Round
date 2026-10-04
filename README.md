@@ -879,9 +879,6 @@ For the complete demonstration:
 ### Sohana Pilli
 **Team Member**
 
-### Shreya Dubey
-**Team Member**
-
 ---
 
 <p align="center">
