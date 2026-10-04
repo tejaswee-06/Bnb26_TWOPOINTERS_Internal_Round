@@ -1,0 +1,82 @@
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 0001_initial, initial Fair Drop Person 1 schema
+INFO  [alembic.runtime.migration] Running upgrade 0001_initial -> 0002_hardening, Person 1 hardening: credentials, fingerprints, token replay and audit chain.
+INFO  [alembic.runtime.migration] Running upgrade 0002_hardening -> 0003_policy, Deterministic policy decisions (explainable ML-driven actions).
+INFO  [alembic.runtime.migration] Running upgrade 0003_policy -> 0004_fair_drop, Fair pre-queue phases, commit-reveal proof fields, ticket types, one-session-per-person.
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+PASS L00 backend + ML services start
+PASS L01 proxy: organizer routes reject anonymous requests
+PASS L02 proxy: admin/integration keys are not exposed (direct backend call without key is 401)
+PASS L03 proxy: non-allow-listed path is 404
+PASS L04 event provisioned (typed inventory) + pre-queue opened through proxy — {'GA': {'total': 350, 'available': 350, 'held': 0, 'confirmed': 0}, 'PR': {'total': 100, 'available': 100, 'held': 0, 'confirmed': 0}, 'VIP': {'total': 50, 'available': 50, 'held': 0, 'confirmed': 0}}
+PASS L05 four customers sign in, join and reach the pre-queue (live session ids/credentials issued by backend) — {'A': '827cbb53ba', 'B': 'bcbabc767e', 'D': '6df7e9d99e', 'E': 'fb548679d7'}
+PASS L06 pre-queue page shows no risk/bot/ML terms
+PASS L07 duplicate session for same account is refused (one entry per person) — You already have an entry for this drop, but this browser no longer holds its se
+PASS L08 20 additional API joins accepted — 24
+PASS L09B P2 evidence on live session -> policy decision CHALLENGE — risk=0.5017209744213802 anomaly=0.477 coord=None -> CHALLENGE rules=['R3_RISK_CHALLENGE']
+PASS L09C P2 evidence on live session -> policy decision THROTTLE — risk=0.75 anomaly=0.496 coord=None -> THROTTLE rules=['R3_RISK_THROTTLE']
+PASS L09D P2 evidence on live session -> policy decision QUARANTINE — risk=0.904 anomaly=0.450 coord=None -> QUARANTINE rules=['R3_RISK_QUARANTINE']
+PASS L09E P2 evidence on live session -> policy decision REJECT — risk=1.0 anomaly=0.638 coord=1.0 -> REJECT rules=['R2_EXTREME_RISK_CORROBORATED', 'R3_RISK_QUARANTINE', 'R5_COORDINATION_CORROBORATED']
+PASS L10 RiskEvent evidence is tagged as replayed (demo_replay_source) and uses the live session id
+PASS L11 RiskEvent ingestion is idempotent (duplicate flagged, no second decision)
+PASS L12 integration key required for RiskEvent ingestion
+PASS L13 ML pull-sync never applies simulator sessions to live customers — {'ml_configured': True, 'ml_available': True, 'ingested': 0, 'duplicates': 0, 'rejected': 0, 'skipped_no_live_session': 20}
+PASS L14 decisions recorded with source/rules/policy version and honest nulls — [('THROTTLE', ['R3_RISK_THROTTLE']), ('REJECT', ['R2_EXTREME_RISK_CORROBORATED', 'R3_RISK_QUARANTINE', 'R5_COORDINATION_CORROBORATED']), ('QUARANTINE', ['R3_RISK_QUARANTINE']), ('CHALLENGE', ['R3_RISK_CHALLENGE'])]
+PASS L15 pre-queue countdown is live — 106
+PASS L16 admin close -> PRE_QUEUE_CLOSED — PRE_QUEUE_CLOSED
+PASS L16 admin randomize -> RANDOMIZED — RANDOMIZED
+PASS L17 seed revealed + eligible set fixed (all 24 joined sessions) — 24
+PASS L18 customer sees randomized position from the draw — YOUR POSITION #7 of 24 entries
+PASS L19 independent commit-reveal verification (python) of the published proof
+PASS L20 every session (incl. policy-parked CHALLENGE/QUARANTINE/REJECT ones) keeps exactly its drawn position; policy never alters the draw — {'A': 7, 'B': 24, 'D': 21, 'E': 8}
+PASS L21 admin start admission -> ADMITTING
+PASS L22 customer A admitted by backend (signed token issued)
+PASS L23 ticket page limits qty to 1 in live mode and shows server inventory
+PASS L24 hold idempotent: same key returns same reservation (no second seat) — {'success': True, 'status': 'HELD', 'reservation_id': 1, 'item_code': 'ai-frontier-mumbai-2026-GA-00001', 'held_until': 
+PASS L25 admission-token replay with a different key is refused — ADMISSION_REQUIRED admission token has already been used
+PASS L26 tampered admission token refused
+PASS L27 booking confirmed through backend
+PASS L28 confirm idempotent (second confirm does not allocate again) — Already confirmed.
+PASS L29 confirm requires the session credential
+PASS L30 customer-side commit-reveal verification passes against live proof + claimed position
+PASS L31 tampered seed fails verification
+PASS L32 CHALLENGE-policy customer sees a quick-check prompt (no scores/reasons)
+PASS L33 API: challenged session cannot be admitted before solving
+PASS L34 solving the proof-of-work challenge in the browser restores admission (policy re-evaluated by backend)
+PASS L35 THROTTLE: first attempt allowed, immediate retry is throttled with retry_after — ADMITTED then THROTTLED retry_after=20
+PASS L36D QUARANTINED customer sees a neutral message, no scores or reasons — ✓ Verify ✓ Pre-queue 3 Admission 4 Tickets 5 Payment Entry could not be accepted  This entry could n
+PASS L37D API admit returns QUARANTINED
+PASS L36E REJECTED customer sees a neutral message, no scores or reasons — ✓ Verify ✓ Pre-queue 3 Admission 4 Tickets 5 Payment Entry could not be accepted  This entry could n
+PASS L37E API admit returns REJECTED
+PASS L38 quarantined session cannot hold inventory — ADMISSION_REQUIRED
+PASS L39 concurrent admissions+allocations: every seat holder confirmed once — {'OK': 19}
+PASS L40 inventory invariant holds and no oversell (avail+held+confirmed==total, confirmed==allocations) — {'total': 500, 'available': 480, 'held': 0, 'confirmed': 20, 'by_type': {'GA': {'total': 350, 'available': 349, 'held': 0, 'confirmed': 1}, 'PR': {'total': 100, 'available': 81, 'held': 0, 'confirmed': 19}, 'VIP': {'total': 50, 'available': 50, 'held': 0, 'confirmed': 0}}, 'invariant_ok': True}
+PASS L41 typed inventory: PR seats decremented by PR buyers only — {'GA': {'total': 350, 'available': 349, 'held': 0, 'confirmed': 1}, 'PR': {'total': 100, 'available': 81, 'held': 0, 'confirmed': 19}, 'VIP': {'total': 50, 'available': 50, 'held': 0, 'confirmed': 0}}
+PASS L42 admin login rejects wrong password
+PASS L43 admin Drop control shows live phase/queue/inventory from backend — PHASE ADMITTING queue: memory-fallback JOINED / ELIGIBLE 24 / 24 one session per account QUEUE DEPTH 0 admission window 
+PASS L44 admin Allocations shows live confirmed seats + no-oversell check
+PASS L45 admin System health shows backend /health + resilience
+PASS L46 admin Intelligence: recorded policy decisions (CHALLENGE/THROTTLE/QUARANTINE/REJECT) with rules — #	SESSION	ACTION	SOURCE	RULES	RISK	ANOMALY	COORD.	CAMPAIGN 5	bcbabc767e244c	NORMAL	challenge	CHALLENGE_PASSED	—	—	—	— 4	ae643be74e0c41	THROTTLE	ml	R3_
+PASS L47 admin Intelligence keeps P2 ML panels (Model 1 / Model 2 / simulator ground truth labelled)
+PASS L48 admin sync button: simulator RiskEvents skipped, not applied to live customers — Ingested 0, duplicates 0, rejected 0; 20 simulator RiskEvents skipped (they reference simulator sessions, not live customers).
+PASS L49 admin Campaigns shows P2 coordination evidence panel + live decisions
+PASS L50 admin Attacks page works and labels attacks as SIMULATOR only
+PASS L51 ML down: backend sync reports unavailable, ingests nothing, invents nothing — {'ml_configured': True, 'ml_available': False, 'detail': 'URLError', 'ingested': 0, 'duplicates': 0, 'rejected': 0, 'skipped_no_live_session': 0}
+PASS L52 ML down: admin shows ML OFFLINE, live decisions still visible
+PASS L53 ML down: customer sessions/queue unaffected
+PASS L54 ML down: policy decisions already recorded keep being enforced (REJECT stays REJECT)
+PASS L55 ML restarts and admin reconnects
+PASS L56 backend down: customer page shows reconnecting banner (no crash, no fake data)
+PASS L57 backend down: admin shows backend unavailable (not simulated)
+PASS L58 backend restarts (same DB)
+PASS L59 state survives restart: inventory identical, invariant holds — {'total': 500, 'available': 480, 'held': 0, 'confirmed': 20, 'by_type': {'GA': {'total': 350, 'available': 349, 'held': 0, 'confirmed': 1}, 'PR': {'total': 100, 'available': 81, 'held': 0, 'confirmed': 19}, 'VIP': {'total': 50, 'available': 50, 'held': 0, 'confirmed': 0}}, 'invariant_ok': True}
+PASS L60 customer page reconnects automatically
+PASS L61 challenged-then-cleared customer B completes purchase after restart
+PASS L62 final inventory invariant + typed counts — {'total': 500, 'available': 479, 'held': 0, 'confirmed': 21, 'by_type': {'GA': {'total': 350, 'available': 348, 'held': 0, 'confirmed': 2}, 'PR': {'total': 100, 'available': 81, 'held': 0, 'confirmed': 19}, 'VIP': {'total': 50, 'available': 50, 'held': 0, 'confirmed': 0}}, 'invariant_ok': True}
+PASS L63 no unexpected page errors (network errors during deliberate outages excluded)
+
+70/70 passed
+Terminated
